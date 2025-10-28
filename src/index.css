@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@theme {
+    --font-poppins: 'Poppins', sans-serif;
+    --color-primary: #ff6b35;
+    --color-primary-hover: #3FBF6A;
+    --color-primary-focus: #2FA85A;
+
+    /* 🌞 LIGHT THEME */
+    --color-background: #f8f8f8;
+    --color-nav: #1e1e1e;
+    --color-surface:#f5f5f5;
+    --color-b-light: #c4cad1;
+    
+    --color-text-primary: #000000;
+    --color-text-muted: #6B7280;
+    --color-text-secondary: #484848;
+}
+
+@layer base {
+    body {
+        @apply  bg-nav font-poppins ;
+          user-select: none;
+
+    }
+     ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #424040;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+}
+
+@layer components {
+    .active {
+        @apply bg-background text-black border-primary border-b-5;
+    }
+    .card-b{
+        @apply border-b-light  shadow-lg border bg-surface;
+    }
+    .center-flex {
+        @apply flex justify-center items-center;
+    }
+
+    .theme-active {
+        @apply bg-nav rounded-2xl ;
+    }
+
+    .blurred {
+        @apply bg-white/10 backdrop-blur-2xl;
+    }
+    .nav-item:not(.active) {
+        &:hover {
+            @apply bg-white/10 backdrop-blur-2xl;
+        }
+    }
+    .f-active{
+          @apply bg-nav text-white px-4 py-2 h-10 transition-all duration-150 ease-in;
+          &:hover{
+            @apply  scale-102 bg-[#1a1a1a] 
+
+          }
+          &:active{
+            @apply scale-99 bg-[#333333] 
+          }
+    }
+    .f-unactive{
+          @apply  text-neutral-800 px-4  border-b-light  shadow-md border bg-neutral-100  h-10 py-2 transition-all duration-150 ease-in;
+        &:hover{
+        @apply scale-102 bg-[#e5e5e5]/80 
+    }
+        &:active{
+            @apply scale-99 bg-[#cccccc]/70 
+          }
+    }
+   
+    .unpin{
+        @apply absolute top-[-30px] right-0 min-w-30 whitespace-nowrap text-[12px] z-20 border-b-light  shadow-md border bg-neutral-100 p-1 opacity-0 rounded-xl text-center  font-bold;
+        pointer-events: none;
+    }
+    .unpin-btn:hover ~ span  {
+        @apply opacity-100
+    }
+    .view-m:hover{
+        @apply  scale-105;
+    }
+.trans{
+    @apply transition duration-300 ease-in-out
+}
+.actions-i span{
+    @apply absolute bottom-0 left-[45px] bg-background p-1  border w-25 text-center rounded-2xl border-b-light shadow-lg font-semibold text-sm transition-opacity duration-300 ease-in-out opacity-0;
+    pointer-events: none;
+}
+.actions-i:hover span{
+    @apply opacity-100
+}
+.highlight-glow {
+  box-shadow: 0 0 15px #ff6b35;
+  animation: glow-pulse 2s ease-in-out infinite;
+  transform: scale(1.05);
+  z-index: 1000;
+  transition: all .3s ease-in-out;
+}
+
+}
+@keyframes glow-pulse {
+  0%   { box-shadow: 0 0 10px #ff6b35; }
+  25%  { box-shadow: 0 0 20px #ff6b35; }
+  50%  { box-shadow: 0 0 30px #ff6b35; }
+  75%  { box-shadow: 0 0 20px #ff6b35; }
+  100% { box-shadow: 0 0 10px #ff6b35; }
+}
