@@ -3,9 +3,6 @@
 @theme {
     --font-poppins: 'Poppins', sans-serif;
     --color-primary: #ff6b35;
-    --color-primary-hover: #3FBF6A;
-    --color-primary-focus: #2FA85A;
-
     /* 🌞 LIGHT THEME */
     --color-background: #f8f8f8;
     --color-nav: #1e1e1e;
@@ -64,7 +61,7 @@
             @apply bg-white/10 backdrop-blur-2xl;
         }
     }
-    .f-active{
+    .f-active,.g-active{
           @apply bg-nav text-white px-4 py-2 h-10 transition-all duration-150 ease-in;
           &:hover{
             @apply  scale-102 bg-[#1a1a1a] 
@@ -74,7 +71,7 @@
             @apply scale-99 bg-[#333333] 
           }
     }
-    .f-unactive{
+    .f-unactive,.g-unactive{
           @apply  text-neutral-800 px-4  border-b-light  shadow-md border bg-neutral-100  h-10 py-2 transition-all duration-150 ease-in;
         &:hover{
         @apply scale-102 bg-[#e5e5e5]/80 
@@ -111,9 +108,11 @@
   z-index: 1000;
   transition: all .3s ease-in-out;
 }
-
+.Img-c{
+    @apply size-full object-cover rounded-full border border-b-light
 }
-@keyframes glow-pulse {
+}
+@keyframes glow-pulse {z
   0%   { box-shadow: 0 0 10px #ff6b35; }
   25%  { box-shadow: 0 0 20px #ff6b35; }
   50%  { box-shadow: 0 0 30px #ff6b35; }

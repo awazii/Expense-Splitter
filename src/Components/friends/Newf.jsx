@@ -2,8 +2,7 @@ import React from 'react'
 import { FaUserPlus } from "react-icons/fa";
 import Newbtn from "./Newbtn"
 import Checkbox from "./Check"
-import Nameinput from "./Name"
-import Bioinput from "./Bio"
+import Input from "./addfinput"
 import ImageBox from "./Imagebox"
 export const Newfriend = () => {
   return (
@@ -13,8 +12,8 @@ export const Newfriend = () => {
         <h4 className='text-text-secondary mr-2'>Share costs. Stay synced.</h4>
       </div>
       <form action="" className='Friend-form  m-6 space-y-3 flex flex-col items-center '>
-                 <Nameinput/>
-                 <Bioinput/>
+                 <Input variant={"Name"}/>
+                 <Input variant={"Bio"}/>
                  <ImageBox/>
                  <div className='flex gap-2 mt-3'>
                  <Checkbox/>

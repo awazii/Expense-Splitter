@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = () => {
+const Input = ({variant}) => {
   return (
     <StyledWrapper>
       <div className="form__group field ">
-        <input type="input" className="form__field" placeholder="Name" required />
-        <label htmlFor="name" className="form__label"> Bio</label>
+        <input type="input" className="form__field" placeholder={variant} required />
+        <label htmlFor="name" className="form__label">{variant}</label>
       </div>
     </StyledWrapper>
   );

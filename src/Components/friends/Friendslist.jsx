@@ -1,6 +1,6 @@
 import React ,{useRef} from 'react'
-import Input from './Input'
-import Button from './searchbtn'
+import Input from '../Input'
+import Button from '../searchbtn'
 import { TbPinnedFilled } from "react-icons/tb";
 import { TbPinnedOff } from "react-icons/tb";
 import saad from "../../assets/saad.jpg"
@@ -29,7 +29,7 @@ export const Friendslist = () => {
     {
       id:"001",
       name: 'Awazii',
-      bio: 'Web developer',
+      bio: 'Front End Dev',
       profilePic: awazii
     },
     {
@@ -73,10 +73,10 @@ export const Friendslist = () => {
   return (
     <div className='Friends'>
       <div className="search flex gap-4 w-full py-2  items-center">
-        <Input />
+        <Input variant={"Friend"} />
         <Button />
       </div>
-      <div className="pinned mt-2 p-2">
+      <div className="pinned-friends mt-2 p-2">
         <h2 className='text-xl font-semibold mb-2 center-flex gap-1 w-20'>Pinned <span> <TbPinnedFilled className='rotate-45' /></span></h2>
         <div className="pinned-friends grid grid-cols-6 gap-3 border-b border-b-light pb-5">
           {
@@ -84,9 +84,9 @@ export const Friendslist = () => {
               return (
                 <div key={index} className='pinned-friend card-b w-60 px-1 py-4 pb-2 h-fit rounded-lg relative flex flex-col gap-2 items-center'>
                   <div className="about flex center-flex gap-3">
-                    <div className="profile border size-16 rounded-full border-b-light"><img className='rounded-full object-cover w-full h-full' src={friend.profilePic} alt="" /></div>
+                    <div className="profile border size-16 rounded-full border-b-light"><img className='Img-c' src={friend.profilePic} alt="" /></div>
                     <div className="info">
-                      <h3 className="name text-text-primary text-lg">{friend.name}</h3>
+                      <h3 className="name text-text-primary text-md font-semibold">{friend.name}</h3>
                       <h4 className="bio text-text-secondary text-sm">{friend.bio}</h4>
                     </div>
                     <div className='absolute right-0 top-0'>

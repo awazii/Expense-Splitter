@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Delbtn from "../Delete"
-import Editbtn from "../Edit"
-import Pinbtn from "../Pin"
+import Delbtn from "./Delete"
+import Editbtn from "./Edit"
+import Pinbtn from "./Pin"
 import { RiFlipHorizontalLine } from "react-icons/ri";
 import { BsThreeDots } from "react-icons/bs";
 import { RiFlipHorizontalFill } from "react-icons/ri";
@@ -20,7 +20,7 @@ const Card = ({ img, name, bio }) => {
                     <div className="front bg-[#dddddd]">
                         <div className="front-content center-flex flex-col gap-3 bg-surface">
                             <div className="profile size-30 rounded-full ">
-                                <img className='rounded-full h-full w-full object-cover' src={img} alt="" />
+                                <img className='Img-c' src={img} alt="" />
                             </div>
                             <div className="info  h-10 center-flex flex-col">
                                 <h3 className="name text-text-primary font-bold">{name}</h3>

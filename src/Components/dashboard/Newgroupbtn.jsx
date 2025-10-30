@@ -20,13 +20,13 @@ const StyledWrapper = styled.div`
   .button {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     background-color: #ff6b35;
     color: #fff;
     border: none;
-    border-radius: 10rem;
+    border-radius: .75rem;
     font-weight: 600;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
   }

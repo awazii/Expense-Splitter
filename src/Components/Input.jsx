@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = () => {
+const Input = ({variant}) => {
   return (
     <StyledWrapper>
       <div className="form ">
-        <input className="input" placeholder="Search Friend " required type="text" />
+        <input className="input" placeholder={`Search ${variant} `} required type="text" />
         <span className="input-border" />
       </div>
     </StyledWrapper>

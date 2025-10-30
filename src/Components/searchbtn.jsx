@@ -28,7 +28,7 @@ const StyledWrapper = styled.div`
     gap: 0.2em;
     cursor: pointer;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     font-weight: 1000;
   }
 

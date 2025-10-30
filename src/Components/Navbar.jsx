@@ -14,11 +14,11 @@ import { NavLink } from 'react-router-dom';
 export const Navbar = () => {
     const [navlist, setnavlist] = useState([
         { icon: <MdSpaceDashboard />, label: "Dashboard",link:'/' },
-        { icon: <FaUserFriends />, label: "Friends",link:'/friends' },
-        { icon: <HiMiniUserGroup />, label: "Groups",link:'/groups' },
-        { icon: <GiExpense />, label: "Expenses",link:'/expenses' },
-        { icon: <MdAnalytics />, label: "Analytics",link:'/analytics' },
-        { icon: <FaCalculator />, label: "Expense Calculator",link:'/calculator' }
+        { icon: <FaUserFriends />, label: "Friends",link:'/Friends' },
+        { icon: <HiMiniUserGroup />, label: "Groups",link:'/Groups' },
+        { icon: <GiExpense />, label: "Expenses",link:'/Expenses' },
+        { icon: <MdAnalytics />, label: "Analytics",link:'/Analytics' },
+        { icon: <FaCalculator />, label: "Expense Calculator",link:'/Expensecalculator' }
     ])
     return (
         <nav className="Navbar  w-70 relative text-white ">
