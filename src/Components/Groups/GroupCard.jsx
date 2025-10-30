@@ -4,7 +4,10 @@ import { RiFlipHorizontalLine } from "react-icons/ri";
 import { RiFlipHorizontalFill } from "react-icons/ri";
 import { FaRupeeSign } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
+import { GiExpense } from "react-icons/gi";
 import Detailbtn from "./detailbtn"
+import dayjs from 'dayjs';
+
 const Card = ({ group }) => {
   const [flip, setflip] = useState(false)
   return (
@@ -19,7 +22,7 @@ const Card = ({ group }) => {
                 }}>
                 <RiFlipHorizontalLine className='size-5' />
               </button>
-              <div className="status p-1 pb-0 flex items-center justify-center gap-2">
+              <div className="status p-1  flex items-center justify-center gap-2">
                 <h4 className="text-sm font-semibold">Status</h4>
                 <div
                   className="flex items-center gap-1 text-sm"
@@ -47,7 +50,7 @@ const Card = ({ group }) => {
                       <h1 className='text-2xl text-text-secondary'>{group.members}</h1>
                     </div>
                     <div className='member-logo size-15 rounded-full bg-[#e0eff5] center-flex'>
-                                <FaUser className='size-5 text-[#4fb1eb]' />
+                      <FaUser className='size-5 text-[#4fb1eb]' />
                     </div>
                   </div>
                   <div className='expenses border h-20 border-b-light rounded-xl flex gap-2 items-center pr-2'>
@@ -56,7 +59,7 @@ const Card = ({ group }) => {
                       <h1 className='text-2xl text-text-secondary'>{Number(group.expenses).toLocaleString()}</h1>
                     </div>
                     <div className='member-logo size-15 rounded-full bg-[#dbf3e6] center-flex'>
-                       <FaRupeeSign className='size-5 text-[#4acb6f]'/>
+                      <FaRupeeSign className='size-5 text-[#4acb6f]' />
                     </div>
                   </div>
                 </div>
@@ -70,6 +73,46 @@ const Card = ({ group }) => {
               }}>
                 < RiFlipHorizontalFill className='size-5' />
               </button>
+              <p className='text-sm  p-1'>
+                Created on <span className='font-semibold'>{dayjs(group.date).format("MM:DD:YYYY")}</span>
+              </p>
+              <div className='grid grid-cols-3 pb-3 pt-2 border-b-light border-b mx-2'>
+                <div className='top-spender-container border-r-1 border-b-light h-28'>
+                  <h3 className='text-sm font-semibold text-center'>Top Spender</h3>
+                  <div className="top-spender-info center-flex  mt-1 flex-col">
+                    <div className="top-spender-img size-16 ">
+                      <img src={group.top_spender.img} className='Img-c' alt="" />
+                    </div>
+                    <div className="top-spender-info center-flex border w-25 h-6 border-b-light
+                    mt-1 rounded-lg gap-2">
+                      <h4 className='Top-spender-name font-semibold text-[13px] text-text-secondary'>{group.top_spender.name}</h4>
+                    </div>
+                  </div>
+                </div>
+                <div className='group-recent-expense h-28 col-span-2'>
+                  <h3 className='text-sm font-semibold text-center'>Recent Expense</h3>
+                  <div className=' center-flex  gap-2 border border-b-light rounded-lg mt-1 mx-2 h-11'>
+                    <p className='text-[14px]  line-clamp-2 text-text-secondary w-40'>{group.recent_expense.expense}</p>
+                    <div className="expense-logo bg-[#e0eff5]  size-9 rounded-full center-flex ">
+                      <GiExpense className='size-4 text-[#4fb1eb]' />
+                    </div>
+                  </div>
+                  <div className=' center-flex gap-2 border border-b-light rounded-lg mt-1 mx-2 h-11'>
+                    <div className='flex items-center gap-1 w-40 amount'>
+                      <p className='text-md text-text-secondary'>{Number(group.recent_expense.amount).toLocaleString()}</p>
+                      <div className='dot size-1 bg-black rounded-full'></div>
+                      <h4 className='text-[14px] font-semibold'>Amount</h4>
+                    </div>
+                    <div className="expense-logo bg-[#dbf3e6]  size-9 rounded-full center-flex ">
+                      <FaRupeeSign className='size-4 text-[#4acb6f]' />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="group-recent-activiity px-4 pt-1">
+                <h4 className='text-text-primary font-bold text-md'>Recent Activity</h4>
+                <h5 className='text-text-secondary text-sm '>{group.recent_activity}</h5>
+              </div>
             </div>
           </div>
         </div>
@@ -82,7 +125,7 @@ const StyledWrapper = styled.div`
   .card {
     overflow: visible;
     width: 378px;
-    height: 254px;
+    height: 260px;
   }
 
   .content {

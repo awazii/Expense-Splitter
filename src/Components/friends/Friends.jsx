@@ -56,7 +56,7 @@ export const Friends = () => {
     <div className="Friends-main h-full overflow-auto scrollbar-hide relative">
       <h1 className="text-3xl font-semibold m-6 mb-2">Friends</h1>
       <div ref={sentinelRef} />
-      <div className={`h-20 sticky top-0 z-20 ${isStuck?"border-0  bg-white/10 backdrop-blur-md ":""} `}>
+      <div className={`h-20 sticky top-0 z-20 ${isStuck?"border-0 rounded-t-lg bg-white/10 backdrop-blur-md ":""} `}>
         <Friendsnav isStuck={isStuck} />
       </div>
       <div className="context container mx-auto rounded-md ">

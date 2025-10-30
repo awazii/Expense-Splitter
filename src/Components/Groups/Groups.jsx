@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState} from 'react'
 import { Outlet, NavLink } from "react-router-dom";
 
-const Groupsnav = (ref) => {
+const Groupsnav = ({isStuck},ref) => {
   return (
     <>
-      <div className={`actions flex gap-3 justify-end items-center px-10  h-full`} >
-        <h2 className="absolute left-0 ml-6 text-[20px] font-medium p-6">
+      <div className={`actions flex gap-3 justify-end items-center px-10 h-full`} >
+    <h2 className={`absolute left-0 ml-6  ${isStuck?"text-[23px] font-semibold ":"text-[20px]"} font-medium p-6`}>
          Every group you've built, every memory you've made.
         </h2>
         <NavLink
@@ -52,7 +52,7 @@ export const Groups = () => {
      <div className="Friends-main h-full overflow-auto scrollbar-hide relative">
        <h1 className="text-3xl font-semibold m-6 mb-2">Groups</h1>
        <div ref={sentinelRef} />
-       <div className={`h-20 sticky top-0 z-20 ${isStuck?"border-0  bg-white/10 backdrop-blur-md ":""}`}>
+       <div className={`h-20 sticky top-0 z-20   ${isStuck?" bg-white/10 backdrop-blur-md rounded-t-lg ":""}`}>
          <Groupsnav isStuck={isStuck} />
        </div>
        <div className="context container mx-auto rounded-md ">
