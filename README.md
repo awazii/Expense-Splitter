@@ -1,29 +1,56 @@
 
-# 💸 Splitly - Advanced Expense Tracker Dashboard
+<div align="center">
+  <img src="https://img.shields.io/badge/REACT-20232a?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/REDUX-593d88?style=for-the-badge&logo=redux&logoColor=white" alt="Redux" />
+  <img src="https://img.shields.io/badge/TAILWIND-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+  
+  <br/>
+  <br/>
 
-**Splitly** is a highly interactive, frontend-only expense tracking and management application. Designed with a focus on seamless user experience, it handles complex data manipulation, multi-step user flows, dynamic filtering, and real-time UI updates entirely on the client side without relying on a backend.
+  <h1>💸 Splitly</h1>
+  <p><b>A highly relational, logic-driven expense tracking and settlement engine.</b></p>
+  
+  <a href="https://awazii-splitly.netlify.app/"><strong>🛑 View Live Demo</strong></a> · 
+  <a href="https://awazii.dev/projects/splitly"><strong>Read the Case Study</strong></a>
+</div>
 
-## ✨ Core Features
+<br/>
 
-* **Advanced Drill-Down Search & Filter Engine:** A custom-built, highly optimized data filtration system. Users can combine search queries with specific category and group filters (AND logic) for pinpoint accuracy.
-* **Complex Multi-Step Forms:** Utilizes `react-hook-form` to handle intricate, 3-step form validations and state capture cleanly without unnecessary re-renders.
-* **Dynamic Data Visualizations:** Real-time, 7-day interactive charts tracking total expenses and transaction counts.
-* **Advanced State Management:** Built to handle hundreds of localized data points seamlessly using Redux Toolkit, ensuring active states (like pinned friends or active filters) persist predictably across the app.
-* **Zero-Lag UI:** Implements custom debounce logic and strict React component memoization (`React.memo`, `useMemo`, `useCallback`) to maintain 60 FPS animations and instant search feedback, even with heavy DOM elements.
-* **Modern Component Architecture:** Integrates custom Tailwind styling alongside premium **Uiverse UI** components for a highly polished, interactive aesthetic.
-* **Fluid Routing & Animations:** Powered by React Router DOM for seamless SPA navigation, paired with Framer Motion for physics-based page transitions and layout animations.
-* **Comprehensive Analytics Dashboard:** A dedicated visualization page utilizing complex array reductions to render real-time, multi-axis line charts and financial summaries over a 7-day trailing period.
-* **On-the-Fly 'Quick Split' Engine:** A standalone temporary splitter utility allowing users to instantly calculate complex, uneven bill splits without requiring them to save the data or create permanent friend groups.
-* **Complex Multi-Step Forms:** Utilizes `react-hook-form` to handle intricate, 3-step form validations and state capture cleanly without unnecessary re-renders.
+> **Splitly** is a strict client-side architecture experiment designed to handle complex, multi-way expense splitting and group debt settlements in real-time, utilizing a normalized Redux Toolkit state.
 
-## 🛠 Tech Stack
+---
 
-* **Framework:** [React.js](https://reactjs.org/)
-* **Routing:** [React Router DOM](https://reactrouter.com/)
-* **State Management:** [Redux Toolkit](https://redux-toolkit.js.org/)
-* **Form Handling:** [React Hook Form](https://react-hook-form.com/)
-* **Styling:** [Tailwind CSS](https://tailwindcss.com/) & [Uiverse UI](https://uiverse.io/)
-* **Animations:** [Framer Motion](https://www.framer.com/motion/)
-* **Icons:** React Icons
-* **Date Formatting:** Day.js
+## 📸 Interface Preview
+
+<img width="1906" height="904" alt="Screenshot 2026-07-14 083751" src="https://github.com/user-attachments/assets/b05d20d8-d8a6-4d92-9b04-2e05e95a44e8" />
+
+
+---
+
+## 🧠 Frontend Architecture & Logic
+
+Unlike standard CRUD applications, Splitly focuses heavily on **client-side state management** and **mathematical logic** without relying on a backend.
+
+### 1. Normalized Redux State
+To prevent deeply nested, unmanageable data, the Redux store is completely normalized. Users, Groups, and Expenses are kept in separate "tables" (slices) and reference each other via IDs. This allows for instant updates across the UI without expensive re-renders or prop-drilling.
+
+### 2. The Settlement Engine
+The core of the application is a custom mathematical engine that calculates "who owes who." It takes an array of raw expenses, calculates the net balances of every user in a group, and outputs the most efficient payment routes to settle all debts.
+
+### 3. Component Architecture
+Built using standard React functional components with custom hooks to abstract away the Redux dispatch/selector logic, keeping the UI components completely decoupled from the state architecture.
+
+---
+
+## 🚀 Core Features
+
+- **Dynamic Group Management:** Create groups and assign friends seamlessly.
+- **Asymmetric Expense Splitting:** Split bills equally, by exact amounts, or by percentages.
+- **Real-Time Balance Calculation:** Instantly updates global and group-specific balances upon adding a transaction.
+- **Activity Feed:** A chronological ledger of all actions and transactions.
+- **Fully Responsive UI:** Built with Tailwind CSS to provide a native-app feel on mobile devices.
+
+---
+
+
   
