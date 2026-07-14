@@ -11,7 +11,7 @@
   <p><b>A highly relational, logic-driven expense tracking and settlement engine.</b></p>
   
   <a href="https://awazii-splitly.netlify.app/"><strong>🛑 View Live Demo</strong></a> · 
-  <a href="https://awazii.dev/projects/splitly"><strong>Read the Case Study</strong></a>
+  <a href="https://awazii.vercel.app/projects/splitly"><strong>Read the Case Study</strong></a>
 </div>
 
 <br/>
