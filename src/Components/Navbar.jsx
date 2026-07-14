@@ -10,7 +10,7 @@ import { FaCalculator } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 import { HiMenu, HiX } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
-import { navbarVariants, navitemVariants, capsuleNavbarVariants } from "../utils/animation";
+import { navbarVariants, navitemVariants, headerVariants  } from "../utils/animation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Updatef } from "./friends/Frienddetails/Updatef";
@@ -39,7 +39,7 @@ export const Navbar = () => {
       <div
         className="md:hidden fixed top-4 left-4 right-4 z-50">
         <motion.div
-          variants={capsuleNavbarVariants}
+          variants={headerVariants}
           initial="hidden"
           animate="visible"
           className="Navbar bg-nav flex items-center justify-between text-white rounded-full px-6 py-3 shadow-lg trans">
