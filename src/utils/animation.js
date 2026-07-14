@@ -85,3 +85,17 @@ export const headerVariants = {
 export const sectionVariants = cardVariants;
 export const analyticsContainerVariants = pageContainerVariants;
 export const analyticsCardVariants = cardVariants;
+export const capsuleNavbarVariants = {
+  hidden: { 
+    y: -20, 
+    opacity: 0 
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+       duration: 0.8,    
+      ease: -"easeIn",     
+    },
+  },
+};
