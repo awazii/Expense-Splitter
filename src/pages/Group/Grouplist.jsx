@@ -133,7 +133,7 @@ export const Grouplist = () => {
 
     return result;
   }, [
-    queryOptions
+    queryOptions ,Groups
   ]);
   const emptyStates = {
     noData: {
@@ -175,16 +175,16 @@ export const Grouplist = () => {
       variants={pageContainerVariants}
       initial="hidden"
       animate="visible"
-      className='Groups'
+      className='Groups px-6 sm:px-2 md:px-2 lg:px-4 '
     >
-      <motion.div variants={itemVariants} className='flex items-center justify-between mt-3'>
-        <div className="search flex gap-4 py-2 items-center">
+      <motion.div variants={itemVariants} className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3'>
+       <div className="search flex gap-4 py-2 items-center w-full md:w-80 lg:w-96">
           <Input variant={"Group"} queryOptions={queryOptions} setqueryOptions={setqueryOptions} />
         </div>
-        <div className='center-flex gap-5'>
+        <div className='flex flex-wrap items-center gap-3 sm:gap-5'>
           {!(queryOptions.Filter.type === "" && queryOptions.Sort.type === "New to Old") &&
             <button
-              className='cursor-pointer text-primary font-semibold underline'
+              className='cursor-pointer text-primary font-semibold underline text-sm sm:text-base'
               onClick={() => {
                 setqueryOptions(prev => (
                   {
@@ -208,21 +208,21 @@ export const Grouplist = () => {
         </div>
       </motion.div>
       {(!queryOptions.Filter.active && queryOptions.Search.value === '') && <motion.div variants={itemVariants} className="pinned-groups-container mt-2 p-2">
-        <h2 className='text-xl font-semibold mb-2 center-flex gap-1 w-20'>
+        <h2 className='text-lg sm:text-xl font-semibold mb-2 center-flex gap-1 w-fit'>
           Pinned <span><TbPinnedFilled className='rotate-45' /></span>
         </h2>
         {PinnedGroups.length > 0 ? (
-          <motion.div variants={pageContainerVariants} className="pinned-groups grid grid-cols-5 gap-3 border-b border-b-light pb-5">
+          <motion.div variants={pageContainerVariants} className="pinned-groups grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 border-b border-b-light pb-5">
             {PinnedGroups.map((group, index) => (
-              <motion.div key={group.id} variants={cardVariants} className='pinned-friend bg-white shadow-md px-1 py-4 pb-2 h-fit rounded-lg relative flex flex-col gap-2 items-center'>
-                <div className="about flex items-center gap-3">
-                  <div className="profile border size-19 rounded-full border-b-light">
+              <motion.div key={group.id} variants={cardVariants} className='pinned-friend bg-white shadow-md px-2 sm:px-1 py-4 pb-2 h-fit rounded-lg relative flex flex-col gap-2 items-center'>
+                <div className="about flex items-center gap-3 w-full min-w-0">
+                  <div className="profile border size-14 sm:size-19 rounded-full border-b-light shrink-0">
                     <img className='Img-c' src={CategoryExtrator(group).Img} alt="" />
                   </div>
-                  <div className="info w-45">
-                    <h3 className="name text-text-primary text-md font-semibold line-clamp-1 w-full">{group.Name}</h3>
-                    <p className='text-text-secondary text-sm'><span className='font-semibold'>{group.Members.length}</span> Members</p>
-                    <p className='text-text-secondary text-sm'><span className='font-semibold'>{Number(group.totalAmount).toLocaleString()}</span> Total Expense</p>
+                  <div className="info flex-1 min-w-0 pr-4">
+                    <h3 className="name text-text-primary text-sm sm:text-md font-semibold line-clamp-1 w-full">{group.Name}</h3>
+                    <p className='text-text-secondary text-xs sm:text-sm'><span className='font-semibold'>{group.Members.length}</span> Members</p>
+                    <p className='text-text-secondary text-xs sm:text-sm truncate'><span className='font-semibold'>{Number(group.totalAmount).toLocaleString()}</span> Total Expense</p>
                   </div>
                   <div className='absolute right-0 top-0'>
                     <button
@@ -256,15 +256,15 @@ export const Grouplist = () => {
         )}
       </motion.div>}
       <motion.div variants={itemVariants} className="friendslist-container min-h-60 border-b-light p-2">
-        <h2 className='text-xl font-semibold mb-2 center-flex gap-1 w-20'>
+        <h2 className='text-lg sm:text-xl font-semibold mb-2 center-flex gap-1 w-fit'>
           Groups <span><HiMiniUserGroup /></span>
         </h2>
         <FilterSortPanel queryOptions={queryOptions} type="group" />
-        {queryOptions.Search.value !== '' && <h2 className='text-text-secondary my-2'>Showing : <span className='font-semibold'> {`${renderedData.length} 
+        {queryOptions.Search.value !== '' && <h2 className='text-text-secondary my-2 text-sm sm:text-base break-words'>Showing : <span className='font-semibold'> {`${renderedData.length} 
         ${renderedData.length > 1 ? "Results" : "Result"}
         for ${queryOptions.Search.value}`} </span></h2>}
         {renderedData.length > 0 ? (
-          <motion.div variants={pageContainerVariants} className="Groupslist grid grid-cols-4 gap-x-3 gap-y-2 mb-5">
+          <motion.div variants={pageContainerVariants} className="Groupslist grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-3 gap-y-3 mb-5">
             {renderedData.map((group) => (
               <motion.div key={group.id} variants={cardVariants} ref={(el) => Setref(el, group.id)}>
                 <GroupCard group={group} />

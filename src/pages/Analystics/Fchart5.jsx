@@ -20,7 +20,7 @@ const GroupExpensesChart = () => {
   const sortedData = [...GroupData].sort((a, b) => b.Spendings - a.Spendings).slice(0, 4);
   return (
     <>
-      {sortedData.length > 0 ? <ResponsiveContainer width={"100%"} height={240}>
+      {sortedData.length > 0 ? <ResponsiveContainer width={"100%"} height={220}>
         <BarChart
           data={sortedData}
           layout="vertical"

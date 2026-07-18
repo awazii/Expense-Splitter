@@ -45,12 +45,12 @@ export const Aboutf = ({ CurrentFriend }) => {
   ];
 
   return (
-    <div className='size-full card-b rounded-lg p-4 shadow'>
+    <div className='size-full card-b rounded-lg p-3 sm:p-4 shadow overflow-auto'>
       <motion.h2
         variants={headerVariants}
         initial="hidden"
         animate="visible"
-        className='text-2xl font-semibold'
+        className='text-lg sm:text-2xl font-semibold'
       >
         About Friend
       </motion.h2>
@@ -60,20 +60,20 @@ export const Aboutf = ({ CurrentFriend }) => {
         animate="visible"
         className="about-f center-flex flex-col gap-2"
       >
-        <div className={`logo rounded-full size-34 center-flex ${CurrentFriend.isBanned ? "border-red-500" : "border-primary"} border-3 relative`}>
-          <img src={CurrentFriend.Image} className='Img-c p-1' alt="profile-image" />
-          <div className={`absolute top-9/12 left-1 p-3 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${CurrentFriend.isBanned ? "block" : "hidden"}`}>
-                              <FaBan className="size-4" />
+        <div className={`logo rounded-full size-25 sm:size-28  center-flex ${CurrentFriend.isBanned ? "border-red-500" : "border-primary"} border-3 relative shrink-0`}>
+          <img src={CurrentFriend.Image} className='Img-c p-1 w-full h-full object-cover rounded-full' alt="profile-image" />
+          <div className={`absolute top-9/12 left-1 p-2 sm:p-3 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${CurrentFriend.isBanned ? "block" : "hidden"}`}>
+                              <FaBan className="size-3 sm:size-4" />
                           </div>
         </div>
-        <div className="info center-flex flex-col">
-          <h3 className='font-semibold text-2xl'>
+        <div className="info center-flex flex-col text-center min-w-0 w-full px-2">
+          <h3 className='font-semibold text-base sm:text-2xl truncate w-full'>
             {`${CurrentFriend.Name}`}{" "}
-            <span className='text-text-secondary text-lg'>
+            <span className='text-text-secondary text-sm sm:text-lg'>
               {CurrentFriend.id === "admin_01" ? " (Admin)" : ""}
             </span>
           </h3>
-          <p className={`${CurrentFriend.isBanned ? "text-red-500 font-semibold" : "text-text-secondary"} text-lg`}>
+          <p className={`${CurrentFriend.isBanned ? "text-red-500 font-semibold" : "text-text-secondary"} text-sm sm:text-lg truncate w-full`}>
             {CurrentFriend.isBanned ? "(Banned)" : CurrentFriend.Bio}
           </p>
         </div>
@@ -82,26 +82,26 @@ export const Aboutf = ({ CurrentFriend }) => {
         variants={pageContainerVariants}
         initial="hidden"
         animate="visible"
-        className='overview-data p-3 space-y-2 grid grid-cols-2 grid-rows-2 gap-x-3'
+        className='overview-data p-2 sm:p-3 space-y-2 grid grid-cols-1 sm:grid-cols-2 grid-rows-2 gap-2 sm:gap-x-3'
       >
         {overvuewData.map((data, index) => (
           <motion.div
             key={index}
             variants={cardVariants}
-            className='overview-item center-flex gap-3 bg-white rounded-lg shadow h-15'
+            className='overview-item flex items-center gap-2 sm:gap-3 bg-white rounded-lg shadow h-auto min-h-[56px] sm:h-15 p-2 min-w-0'
           >
-            <div className="icon size-11 rounded-full center-flex bg-lightest w-12">
-              <data.icon className={`${data.textColor} size-7`} />
+            <div className="icon size-9 sm:size-11 rounded-full center-flex bg-lightest shrink-0">
+              <data.icon className={`${data.textColor} size-5 sm:size-7`} />
             </div>
-            <div className="info flex-col flex-1">
-              <h4 className='font-semibold'>{data.label}</h4>
+            <div className="info flex-col flex-1 min-w-0">
+              <h4 className='font-semibold text-xs sm:text-base truncate'>{data.label}</h4>
               {data.label === "Groups Involved"  ? (
-                <button className={`underline cursor-pointer text-sm text-primary font-semibold`} onClick={Openmodel}>
+                <button className={`underline cursor-pointer text-xs sm:text-sm text-primary font-semibold`} onClick={Openmodel}>
                   {data.value}
                 </button>
               ) : (
                 <p
-                  className={`text-sm ${
+                  className={`text-xs sm:text-sm truncate ${
                     data.Netbalance ? data.textColor : "text-text-secondary"
                   } font-semibold`}
                 >

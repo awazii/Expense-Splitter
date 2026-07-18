@@ -25,19 +25,22 @@ const StyledWrapper = styled.div`
   .radio-inputs {
     position: relative;
     display: flex;
-    gap:5px;
+    gap: clamp(3px, 1vw, 5px);
     border-radius: 0.5rem;
     background-color: #eee;
     box-sizing: border-box;
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
     padding: 0.20rem;
-    width: 200px;
-    font-size: 15px;
+    width: 100%;
+    max-width: 200px;
+    min-width: 160px;
+    font-size: clamp(11px, 2.5vw, 13px);
     margin: 4px 3px;
   }
 
   .radio-inputs .radio1 {
-    width:100px;
+    flex: 1 1 0;
+    min-width: 0;
     text-align: center;
   }
 
@@ -52,9 +55,12 @@ const StyledWrapper = styled.div`
     justify-content: center;
     border-radius: 0.5rem;
     border: none;
-    padding: 0.25rem 0;
+    padding: 0.25rem clamp(2px, 1vw, 6px);
     color: rgba(51, 65, 85, 1);
     transition: all 0.15s ease-in-out;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .radio-inputs .radio1 input:checked + .name {

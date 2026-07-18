@@ -21,17 +21,18 @@ const StyledWrapper = styled.div`
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    gap:15px;
+    gap: clamp(6px, 1.5vw, 15px);
     border-radius: 0.5rem;
     box-sizing: border-box;
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    padding: 0.25rem;
-    width: fit;
-    font-size: 14px;
+    padding: clamp(0.2rem, 1vw, 0.25rem);
+    width: 100%;
+    font-size: clamp(11px, 2.2vw, 14px);
   }
 
   .radio-inputs .radio {
     flex: 1 1 auto;
+    min-width: 70px;
     text-align: center;
   }
 
@@ -46,9 +47,10 @@ const StyledWrapper = styled.div`
     justify-content: center;
     border-radius: 0.5rem;
     border: none;
-    padding: 0.5rem 0;
+    padding: clamp(0.35rem, 1.5vw, 0.5rem) clamp(0.25rem, 1vw, 0.5rem);
     color: rgba(51, 65, 85, 1);
     transition: all 0.15s ease-in-out;
+    white-space: nowrap;
   }
 
   .radio-inputs .radio input:checked + .name {
@@ -56,12 +58,10 @@ const StyledWrapper = styled.div`
     font-weight: 600;
   }
 
-  /* Hover effect */
   .radio-inputs .radio:hover .name {
     background-color: rgba(255, 255, 255, 0.5);
   }
 
-  /* Animation */
   .radio-inputs .radio input:checked + .name {
     position: relative;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

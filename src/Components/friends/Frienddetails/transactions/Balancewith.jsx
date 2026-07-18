@@ -16,19 +16,19 @@ export const Balancewith = ({ Currentbalancewith, currentFriend }) => {
   const [issettlementopen, setissettlementopen] = useState(false);
   const [ispaymentsuccessful, setispaymentsuccessful] = useState({ is: false, amount: 0 });
   return (
-    <div className='w-130 h-fit'>
-      <div className="profiles w-full center-flex gap-5 mt-2 mb-4">
-          <div className={`profile size-22 rounded-full relative border-2 ${currentFriend.isBanned ? "border-red-500" : "border-primary"} center-flex`}>
-                    <img className='Img-c' src={currentFriend.Image} alt="Current-friend-img" />
-                    <div className={`absolute top-9/12 left-1 p-2 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${currentFriend.isBanned ? "block" : "hidden"}`}>
-                      <FaBan className="size-3" />
+    <div className='w-full sm:w-[90vw] md:w-130 max-w-[90vw] h-fit'>
+      <div className="profiles w-full flex items-center justify-center gap-3 sm:gap-5 mt-2 mb-4">
+          <div className={`profile size-14 sm:size-22 rounded-full relative shrink-0 border-2 ${currentFriend.isBanned ? "border-red-500" : "border-primary"} center-flex`}>
+                    <img className='Img-c w-full h-full object-cover rounded-full' src={currentFriend.Image} alt="Current-friend-img" />
+                    <div className={`absolute top-9/12 left-1 p-1 sm:p-2 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${currentFriend.isBanned ? "block" : "hidden"}`}>
+                      <FaBan className="size-2 sm:size-3" />
                     </div>
                   </div>
-        <GrTransaction className='size-8 text-text-secondary' />
-        <div className={`profile size-22 rounded-full relative border-2 ${Memberdetails(Currentbalancewith)?.isBanned ? "border-red-500" : "border-primary"} center-flex`}>
-                    <img className='Img-c' src={Memberdetails(Currentbalancewith)?.Image} alt="Current-balance-with-img" />
-                    <div className={`absolute top-9/12 left-1 p-2 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${Memberdetails(Currentbalancewith)?.isBanned ? "block" : "hidden"}`}>
-                      <FaBan className="size-3" />
+        <GrTransaction className='size-5 sm:size-8 text-text-secondary shrink-0' />
+        <div className={`profile size-14 sm:size-22 rounded-full relative shrink-0 border-2 ${Memberdetails(Currentbalancewith)?.isBanned ? "border-red-500" : "border-primary"} center-flex`}>
+                    <img className='Img-c w-full h-full object-cover rounded-full' src={Memberdetails(Currentbalancewith)?.Image} alt="Current-balance-with-img" />
+                    <div className={`absolute top-9/12 left-1 p-1 sm:p-2 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${Memberdetails(Currentbalancewith)?.isBanned ? "block" : "hidden"}`}>
+                      <FaBan className="size-2 sm:size-3" />
                     </div>
                   </div>
       </div>

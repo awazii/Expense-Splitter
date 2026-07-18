@@ -14,7 +14,7 @@ const GroupSizeChart = () => {
   return (
     <>
       {data.length > 0 ?
-        <ResponsiveContainer width="100%" height={240}>
+        <ResponsiveContainer width="100%" height={220}>
           <LineChart
             data={data}
             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}

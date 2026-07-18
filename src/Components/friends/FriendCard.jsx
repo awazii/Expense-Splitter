@@ -12,12 +12,14 @@ import { useNavigate } from 'react-router-dom';
 import { indicators } from '../../pages/friends/Friendslist';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateFriend } from '../../store/FriendsSlice';
+import { FriendActivities } from '../../store/ActivitySlice';
 import {FaBan} from "react-icons/fa";
 const Card = React.memo(({ friend }) => {
   const Navigation = useNavigate()
   const dispatch = useDispatch()
   const [flip, setflip] = useState(false)
   const [pin, setpin] = useState(friend.isPinned)
+   const RecentActivity = useSelector(state=>FriendActivities(state,friend.id).slice(0,1))
   useEffect(() => {
     setpin(friend.isPinned);
   }, [friend.isPinned])
@@ -46,7 +48,7 @@ function handlePin() {
                                                 </div>
                     </div>
                     <div className="info h-10 flex items-start justify-center flex-col flex-1">
-                      <h3 className="name text-text-primary font-bold ">{friend.Name} <span className='text-[12px]'>{`${friend.id === "admin_01" ? "(Admin)" : ""}`}</span></h3>
+                      <h3 className="name text-text-primary font-bold line-clamp-1 ">{friend.Name} <span className='text-[12px]'>{`${friend.id === "admin_01" ? "(Admin)" : ""}`}</span></h3>
                       <h4 className={`bio ${friend.isBanned ? "text-red-500 font-semibold" : "text-text-secondary"} text-sm`}>{friend.isBanned ? " (banned)" : friend.Bio}</h4>
                     </div>
                   </div>
@@ -101,7 +103,7 @@ function handlePin() {
                 </div>
                 <div className=' col-span-2 p-2 border-t-1 border-b-light'>
                   <h4 className='text-text-primary font-bold'>Recent Activity</h4>
-                  <h5 className='text-text-secondary text-sm'>No Receipts Available</h5>
+                  <h5 className='text-text-secondary text-sm'>{RecentActivity.length > 0 ? RecentActivity[0]?.title :"No Receipt Available"}</h5>
 
                 </div>
               </div>
@@ -155,8 +157,8 @@ const StyledWrapper = styled.div`
     position: absolute;
     content: ' ';
     display: block;
-    width: 200px;
-    height: 200%;
+    width: 40%;
+    height: 250%;
     background: linear-gradient(90deg, transparent, #ff6b35, #ff6b35, #ff6b35, #ff6b35, transparent);
     animation: rotation_481 5000ms infinite linear;
   }
@@ -168,10 +170,6 @@ const StyledWrapper = styled.div`
     border-radius: 5px;
     color: black;
   }
-
-//   .content {
-//     transform: rotateY(180deg);
-//   }
 
   @keyframes rotation_481 {
     0% {

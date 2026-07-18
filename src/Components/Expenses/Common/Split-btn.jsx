@@ -36,8 +36,8 @@ const StyledWrapper = styled.div`
     color: white;
     border-radius: .9rem;
     cursor: pointer;
-    width: 140.02px;
-    height: 45.66px;
+    width: clamp(100px, 30vw, 140.02px);
+    height: clamp(36px, 10vw, 45.66px);
     border: none;
     background-color: #ff6b35;
     display: flex;
@@ -50,6 +50,7 @@ const StyledWrapper = styled.div`
     display: flex;
     overflow: hidden;
     gap: 1px;
+    font-size: clamp(0.8rem, 3vw, 1rem);
   }
 
   button:hover .span-mother {
@@ -70,6 +71,8 @@ const StyledWrapper = styled.div`
     position: absolute;
     overflow: hidden;
     gap: 1px;
+    font-size: clamp(0.6rem, 2.4vw, 0.85rem);
+    max-width: 90%;
   }
 
   button .span-mother2 span {

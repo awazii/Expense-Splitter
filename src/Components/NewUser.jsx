@@ -7,26 +7,26 @@ import { FaCalculator } from "react-icons/fa";
 import { RiHandCoinLine } from "react-icons/ri";
 import { useForm, Controller } from 'react-hook-form';
 import { uploadToCloudinary } from '../utils/Uploadimg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useWatch } from 'react-hook-form';
 import Loader from './Common/loader';
 import { addFriend } from '../store/FriendsSlice';
 import { useNavigate } from 'react-router-dom';
 import { setNewUser } from '../store/UserSlice';
+
 export const SplitlyOnboarding = ({ onFinish }) => {
     const [step, setStep] = useState(0);
     const [CurrentImage, setCurrentImage] = useState("")
     const dispatch = useDispatch()
     const [Finalform, setFinalform] = useState({})
     const navigate = useNavigate()
+    
     const {
-        register,
         handleSubmit,
         reset,
         trigger,
-        getValues,
         control,
-        formState: { errors, isSubmitting, },
+        formState: { errors, isSubmitting },
     } = useForm({
         defaultValues: {
             Name: "",
@@ -35,10 +35,12 @@ export const SplitlyOnboarding = ({ onFinish }) => {
             isPinned: false
         }
     });
+    
     const fileInputRef = useRef(null);
     const usernamePattern = /^[A-Za-z][0-9A-Za-z_\s]*$/;
     const bioPattern = /^[A-Za-z][A-Za-z\s.,'-]*$/;
     const CurrentForm = useWatch({ control });
+    
     const Onsubmit = async (data) => {
         try {
             const imageUrl = await uploadToCloudinary(data.Image);
@@ -58,6 +60,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
             console.error("Error adding friend:", error);
         }
     };
+    
     const handleImageChange = (e, field) => {
         const file = e.target.files[0];
         if (file) {
@@ -65,17 +68,18 @@ export const SplitlyOnboarding = ({ onFinish }) => {
             field.onChange(file)
         }
     };
+    
     const GetStarted = () => {
         dispatch(setNewUser(false));
-        dispatch(addFriend(
-            Finalform.Name,
-            Finalform.Bio,
-            Finalform.Image,
-            Finalform.isPinned
-        ))
+        dispatch(addFriend({
+            Name: Finalform.Name,
+            Bio: Finalform.Bio,
+            Image: Finalform.Image,
+            isPinned: Finalform.isPinned
+        }))
         navigate('/')
-
     }
+    
     const nextStep = () => setStep((s) => s + 1);
 
     const steps = [
@@ -104,7 +108,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
             title: "Settle Debts Instantly",
             desc: "Pay back your friends with one click. Every settlement instantly updates your local balance with that friend and your global net total.",
             icon: RiHandCoinLine,
-            gradient: "bg-gradient-to-r from-red-400 via-red-500 to-red-600",
+            gradient: "bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white",
             indicator: 'bg-red-500',
             hover: 'hover:bg-red-600'
         },
@@ -120,39 +124,44 @@ export const SplitlyOnboarding = ({ onFinish }) => {
 
     const Geticon = (obj) => {
         const Icon = obj.icon
-        return <Icon className="size-10 text-white" />
+        return <Icon className="size-10 text-white shrink-0" />
     }
+    
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface p-4 font-sans">
+       
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface sm:p-4 font-sans">
             <motion.div
                 layout
-                className="relative w-full max-w-md overflow-hidden bg-white rounded-[2.5rem] shadow-2xl shadow-gray-300"
+               
+                className="relative w-full h-full sm:h-auto sm:max-h-[95vh] max-w-md overflow-y-auto bg-white rounded-none sm:rounded-[2.5rem] shadow-2xl shadow-gray-300 flex flex-col"
             >
-                <div className="p-8 md:p-10">
+             
+                <div className="p-6 sm:p-8 md:p-10 flex flex-col flex-1 justify-center min-h-full">
                     <AnimatePresence mode="wait">
                         {step === 0 ? (
-                            <motion.form onSubmit={handleSubmit(Onsubmit)}
+                            <motion.form 
+                                onSubmit={handleSubmit(Onsubmit)}
                                 key="profile-setup"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
-                                className="flex flex-col items-center"
+                                className="flex flex-col items-center w-full"
                             >
-                                <h2 className="text-3xl font-bold
-                             text-gray-900 mb-2">Who are you?</h2>
-                                <p className="text-text-secondary mb-8">Set up your profile to start splitting.</p>
+                                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Who are you?</h2>
+                                <p className="text-sm sm:text-base text-text-secondary mb-6 sm:mb-8 text-center">Set up your profile to start splitting.</p>
+                                
                                 <div
                                     onClick={() => fileInputRef.current.click()}
-                                    className="relative group cursor-pointer mb-4"
+                                    className="relative group cursor-pointer mb-4 shrink-0"
                                 >
-                                    <div className="size-32 rounded-full bg-neutral-50 border-2 border-dashed border-neutral-300 group flex items-center justify-center overflow-hidden transition-all group-hover:border-primary">
+                                    <div className="size-28 sm:size-32 rounded-full bg-neutral-50 border-2 border-dashed border-neutral-300 group flex items-center justify-center overflow-hidden transition-all group-hover:border-primary">
                                         {CurrentImage ? (
                                             <img src={CurrentImage} className="w-full h-full object-cover" alt="Preview" />
                                         ) : (
-                                            <HiCamera className="text-4xl text-neutral-300 group-hover:text-primary" />
+                                            <HiCamera className="text-3xl sm:text-4xl text-neutral-300 group-hover:text-primary" />
                                         )}
                                     </div>
-                                    <div className="absolute bottom-1 right-1 p-2 bg-primary rounded-full text-white shadow-lg">
+                                    <div className="absolute bottom-1 right-1 p-1.5 sm:p-2 bg-primary rounded-full text-white shadow-lg">
                                         <HiCheck className="size-4" />
                                     </div>
                                     <Controller
@@ -160,23 +169,22 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                         control={control}
                                         rules={{ required: "Image is required" }}
                                         render={({ field, fieldState }) => (
-                                            <>
-                                                <input
-                                                    type="file"
-                                                    hidden
-                                                    ref={fileInputRef}
-                                                    accept="image/*"
-                                                    onChange={(file) => {
-                                                        handleImageChange(file, field)
-                                                        trigger("Image");
-                                                    }}
-                                                />
-                                            </>
+                                            <input
+                                                type="file"
+                                                hidden
+                                                ref={fileInputRef}
+                                                accept="image/*"
+                                                onChange={(file) => {
+                                                    handleImageChange(file, field)
+                                                    trigger("Image");
+                                                }}
+                                            />
                                         )}
                                     />
                                 </div>
-                                {errors.Image && <p className='text-red-600 text-sm mb-2'>{errors.Image.message}</p>}
-                                <div className="w-full space-y-4">
+                                {errors.Image && <p className='text-red-600 text-xs sm:text-sm mb-2'>{errors.Image.message}</p>}
+                                
+                                <div className="w-full space-y-3 sm:space-y-4">
                                     <Controller
                                         name="Name"
                                         control={control}
@@ -195,18 +203,19 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                                     {...field}
                                                     type="text"
                                                     placeholder="Display Name"
-                                                    className="w-full p-4 border-l rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-medium"
+                                                    className="w-full p-3 sm:p-4 text-sm sm:text-base border-l rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-medium bg-gray-50/50"
                                                     onChange={(e) => {
                                                         field.onChange(e);
                                                         trigger("Name");
                                                     }}
                                                 />
                                                 {fieldState.error && (
-                                                    <p className="text-red-600 text-sm">{fieldState.error.message}</p>
+                                                    <p className="text-red-600 text-xs sm:text-sm pl-1">{fieldState.error.message}</p>
                                                 )}
                                             </>
                                         )}
                                     />
+                                    
                                     <Controller
                                         name="Bio"
                                         control={control}
@@ -225,14 +234,14 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                                     {...field}
                                                     type="text"
                                                     placeholder="Bio (What's your vibe?)"
-                                                    className="w-full p-4 border-l rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-medium"
+                                                    className="w-full p-3 sm:p-4 text-sm sm:text-base border-l rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-medium bg-gray-50/50"
                                                     onChange={(e) => {
                                                         field.onChange(e);
                                                         trigger("Bio");
                                                     }}
                                                 />
                                                 {fieldState.error && (
-                                                    <p className="text-red-600 text-sm">{fieldState.error.message}</p>
+                                                    <p className="text-red-600 text-xs sm:text-sm pl-1">{fieldState.error.message}</p>
                                                 )}
                                             </>
                                         )}
@@ -240,9 +249,9 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                 </div>
 
                                 <button
-                                    disabled={!CurrentForm.Name}
+                                    disabled={!CurrentForm.Name || isSubmitting}
                                     type='submit'
-                                    className={`w-full mt-8 p-4 bg-primary hover:bg-orange-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-100 flex items-center justify-center gap-2 disabled:opacity-50 ${isSubmitting ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                                    className={`w-full mt-6 sm:mt-8 p-3 sm:p-4 bg-primary hover:bg-orange-600 text-white font-bold rounded-2xl shadow-xl shadow-orange-100 flex items-center justify-center gap-2 disabled:opacity-50 transition-all ${isSubmitting ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                 >
                                     {isSubmitting && <Loader />}
                                     {!isSubmitting && <>Next <HiArrowRight /></>}
@@ -254,13 +263,13 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
-                                className="text-center"
+                                className="text-center flex flex-col items-center justify-center w-full"
                             >
-                                <div className={`size-24 rounded-3xl flex ${steps[step]?.gradient} items-center justify-center text-5xl mx-auto mb-8 shadow-inner`} >
+                                <div className={`size-20 sm:size-24 rounded-3xl flex ${steps[step]?.gradient} items-center justify-center text-4xl sm:text-5xl mx-auto mb-6 sm:mb-8 shadow-inner shrink-0`} >
                                     {Geticon(steps[step])}
                                 </div>
-                                <h2 className="text-2xl font-bold text-gray-900 mb-4">{steps[step].title}</h2>
-                                <p className="text-text-secondary leading-relaxed px-2 mb-10">
+                                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">{steps[step].title}</h2>
+                                <p className="text-sm sm:text-base text-text-secondary leading-relaxed px-1 sm:px-2 mb-8 sm:mb-10">
                                     {steps[step].desc}
                                 </p>
 
@@ -268,19 +277,20 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                     onClick={() => {
                                         step === steps.length - 1 ? GetStarted() : nextStep()
                                     }}
-                                    className={`w-full p-4  text-white font-bold rounded-2xl flex items-center justify-center gap-2 ${steps[step].hover} transition-colors cursor-pointer ${steps[step].indicator}`}
+                                    className={`w-full p-3 sm:p-4 text-white font-bold rounded-2xl flex items-center justify-center gap-2 ${steps[step].hover} transition-all cursor-pointer ${steps[step].indicator} shadow-md`}
                                 >
-                                    {step === steps.length - 1 ? "Get Started" : "Continue"} <HiArrowRight />
+                                    {step === steps.length - 1 ? "Get Started" : "Continue"} <HiArrowRight className="shrink-0" />
                                 </button>
                             </motion.div>
                         )}
                     </AnimatePresence>
 
-                    <div className="flex justify-center gap-2 mt-10">
+                    
+                    <div className="flex justify-center gap-2 mt-auto pt-8">
                         {steps.map((_, i) => (
                             <div
                                 key={i}
-                                className={`h-1.5 rounded-full transition-all duration-500 ${i === step ? `w-10 ${steps[step].indicator}` : 'w-2 bg-gray-200'}`}
+                                className={`h-1.5 rounded-full transition-all duration-500 ${i === step ? `w-8 sm:w-10 ${steps[step].indicator}` : 'w-2 bg-gray-200'}`}
                             />
                         ))}
                     </div>

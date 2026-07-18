@@ -75,7 +75,6 @@ export const GroupActivities = createSelector(
         const frozenindex = activities.findIndex(
             activity => activity.groupid === group?.id && activity.title ==="Group Frozen"
         );
-        console.log(joinedindex , frozenindex)
         if (joinedindex !== -1) {
             return activities.slice(frozenindex !== -1 ? frozenindex : 0,joinedindex).filter(activity => {
                 if (activity.groupid === group.id) {

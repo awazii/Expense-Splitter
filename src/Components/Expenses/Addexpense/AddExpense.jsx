@@ -177,12 +177,8 @@ export const Addexpense = () => {
                 Closemodel={Closemodel}
                 title="Expense Logged!"
             >
-                <div className="success-message w-120 h-80 card-b rounded-2xl  mx-auto  py-4 pb-2 px-6 relative center-flex flex-col ">
-                    <div style={{
-                        width: '200px',
-                        height: '200px',
-                        margin: '0 auto',
-                    }}>
+                <div className="success-message w-[92%] sm:w-96 md:w-120 h-auto min-h-[280px] sm:h-80 card-b rounded-2xl mx-auto py-4 pb-2 px-4 sm:px-6 relative center-flex flex-col ">
+                    <div className="w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] md:w-[200px] md:h-[200px] mx-auto">
                         <DotLottieReact
                             src="https://lottie.host/b7574485-9fdd-4f3c-bf61-6745a5a799b4/2TRkq89Pt5.lottie"
                             loop
@@ -190,71 +186,59 @@ export const Addexpense = () => {
                             style={{ width: '100%', height: '100%' }}
                         />
                     </div>
-                    <p className='text-text-secondary font-bold text-lg'>
+                    <p className='text-text-secondary font-bold text-base sm:text-lg text-center'>
                         Expense added successfully!
                     </p>
-                    <button className="text-primary font-semibold mt-2 cursor-pointer underline" onClick={() => {
+                    <button className="text-primary font-semibold mt-2 cursor-pointer underline text-sm sm:text-base" onClick={() => {
                         navigate(`/Groups/${Groupid}/Expenses`);
                     }}>
                         See All Expenses
                     </button>
                 </div>
             </Basemodel>
-            <motion.form layout onSubmit={handleSubmit(onSubmit)} className="Add-expense-form w-250 h-175 bg-white shadow-md rounded-2xl  mx-auto mt-10 py-4 pb-2 px-6 relative">
-                <div className="title center-flex flex-col gap-0">
-                    <h2 className='text-2xl font-semibold flex items-center gap-2 text-center p-2 pb-0'>Add New Expense<span><GiExpense /></span></h2>
-                    <h4 className="text-text-secondary mr-2">Smart Splits, Stress-Free Settlements</h4>
+            <motion.form layout onSubmit={handleSubmit(onSubmit)} className="
+                    Add-expense-form
+                    w-full sm:w-[80%] md:w-[85%] lg:w-[80%] xl:max-w-4xl 2xl:max-w-5xl
+                    lg:min-h-[650px] h-[73vh] 
+                    bg-white shadow-md rounded-none sm:rounded-2xl
+                    mx-auto mt-0 sm:mt-6 lg:mt-10 px-2
+                     sm:px-6 md:px-8 py-2
+                    flex flex-col 
+                    relative
+                ">
+                <div className="title center-flex flex-col gap-0 shrink-0 ">
+                    <h2 className='text-lg sm:text-xl lg:text-2xl font-semibold flex items-center gap-2 text-center p-2 pb-0'>Add New Expense<span><GiExpense /></span></h2>
+                    <h4 className="text-text-secondary text-xs sm:text-sm mr-2 text-center">Smart Splits, Stress-Free Settlements</h4>
                 </div>
-                <div className="current-step">
+           <div className="flex-1 overflow-y-auto ">
                     <AnimatePresence mode="wait">
-                        {step === 1 && (
-                            <motion.div
-                                key="step1"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <Stepone />
-                            </motion.div>
-                        )}
-                        {step === 2 && (
-                            <motion.div
-                                key="step2"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <Steptwo />
-                            </motion.div>
-                        )}
-                        {step === 3 && (
-                            <motion.div
-                                key="step3"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <Stepthree />
-                            </motion.div>
-                        )}
+                        <motion.div
+                            key={step}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.3 }}
+                            className="h-full w-full"
+                        >
+                            {step === 1 && <Stepone />}
+                            {step === 2 && <Steptwo />}
+                            {step === 3 && <Stepthree />}
+                        </motion.div>
                     </AnimatePresence>
                 </div>
-                <div className="progress center-flex flex-col mt-6  absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                    <h3 className='text-text-secondary'>Step {step} of 3</h3>
-                    <div className="progress-bar h-3 bg-highlight rounded-full mt-2 w-60 shadow border-l">
+                <div className="progress center-flex flex-col absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg border border-gray-200 z-90">
+                    <h3 className='text-xs sm:text-sm text-text-secondary'>Step {step} of 3</h3>
+                    <div className="progress-bar h-2 sm:h-3 bg-highlight rounded-full mt-2 w-32 sm:w-44 md:w-60 shadow border-l">
                         <div className={`progress-fill h-full bg-primary ${step === 1 ? "w-1/3" : step === 2 ? "w-2/3" : "w-full"} rounded-full trans`}></div>
                     </div>
                 </div>
                 {
-                    step !== 3 && (<button type="button" className="next absolute bottom-4 right-6" onClick={() => handleNext(step, setstep, methods)}>
+                    step !== 3 && (<button type="button" className="next absolute bottom-4 right-4 sm:right-6 z-90" onClick={() => handleNext(step, setstep, methods)}>
                         <Next />
                     </button>)
                 }
                 {
-                    step !== 1 && (<button type="button" className="prev absolute bottom-4 left-6" onClick={() => {
+                    step !== 1 && (<button type="button" className="prev absolute bottom-4 left-4 sm:left-6 z-90" onClick={() => {
                         if (!isSubmitting) {
                             setstep(step - 1)
                         }

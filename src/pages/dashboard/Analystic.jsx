@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
-import { PieChart, Pie, Tooltip, Sector } from "recharts";
+import { PieChart, Pie, Tooltip, Sector, ResponsiveContainer } from "recharts";
 import { ExpenseAnalystics } from "../../store/ExpenseSlice";
 import { useSelector } from 'react-redux';
 import { RiPieChart2Line } from "react-icons/ri";
@@ -41,72 +41,75 @@ export const Analystic = () => {
   const CategoryData = useSelector(ExpenseAnalystics);
 
   return (
-    <div className='center-flex h-full w-full gap-6'>
+    <div className='center-flex flex-col 2xl:flex-row   h-full w-full gap-4 lg:gap-6 p-2 sm:p-4'>
       {CategoryData.length > 0 ? (
         <>
-          {/* Chart stays static */}
-          <PieChart width={650} height={480}>
-            <defs>
-              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="4" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
+          <div className="chart-wrapper w-full max-w-[280px] lg:max-w-none lg:w-[40%] aspect-square shrink-0">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <defs>
+                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
 
-            <Pie
-              data={CategoryData}
-              dataKey="amount"
-              nameKey="name"
-              innerRadius={130}
-              outerRadius={220}
-              cornerRadius={8}
-              paddingAngle={2}
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              onMouseEnter={(_, index) => setActiveIndex(index)}
-              onMouseLeave={() => setActiveIndex(null)}
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: 8,
-                border: "none",
-                fontWeight: 600,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                padding: "10px 14px",
-                backgroundColor: "#fff",
-              }}
-              formatter={(value, name) => {
-                const formattedValue = Number(value).toLocaleString();
-                return [`Amount: Rs.${formattedValue}`, name];
-              }}
-            />
-          </PieChart>
+                <Pie
+                  data={CategoryData}
+                  dataKey="amount"
+                  nameKey="name"
+                  innerRadius="55%"
+                  outerRadius="92%"
+                  cornerRadius={8}
+                  paddingAngle={2}
+                  activeIndex={activeIndex}
+                  activeShape={renderActiveShape}
+                  onMouseEnter={(_, index) => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(null)}
+                />
+                <Tooltip
+                  contentStyle={{
+                    borderRadius: 8,
+                    border: "none",
+                    fontWeight: 600,
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                    padding: "10px 14px",
+                    backgroundColor: "#fff",
+                  }}
+                  formatter={(value, name) => {
+                    const formattedValue = Number(value).toLocaleString();
+                    return [`Amount: Rs.${formattedValue}`, name];
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
           <motion.div
             variants={pageContainerVariants}
             initial="hidden"
             animate="visible"
-            className="des flex-1"
+            className="des flex-1 w-full min-w-0"
           >
-            <h2 className='text-2xl font-semibold mb-2'>Expenses Breakdown</h2>
-            <p className='text-text-secondary text-sm mb-4 w-70'>
+            <h2 className='text-lg sm:text-xl lg:text-2xl font-semibold mb-2'>Expenses Breakdown</h2>
+            <p className='text-text-secondary text-xs sm:text-sm mb-4 w-full lg:w-70'>
               How each category adds up
             </p>
             {CategoryData.map((category, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="category-item flex items-center mb-3"
+                className="category-item flex items-center mb-3 min-w-0"
               >
                 <div
-                  className="color-box w-5 h-5 rounded-md mr-4 shadow-md"
+                  className="color-box w-4 h-4 sm:w-5 sm:h-5 rounded-md mr-3 sm:mr-4 shadow-md shrink-0"
                   style={{ backgroundColor: category.fill }}
                 ></div>
-                <div className="category-info">
-                  <p className='font-semibold'>{category.name}</p>
-                  <p className='text-sm text-text-secondary'>
+                <div className="category-info min-w-0">
+                  <p className='font-semibold text-sm sm:text-base truncate'>{category.name}</p>
+                  <p className='text-xs sm:text-sm text-text-secondary truncate'>
                     {category.count} expenses - Rs.{Number(category.amount).toLocaleString()}
                   </p>
                 </div>

@@ -107,17 +107,17 @@ export const Settle = ({ CurrentFriend, Currentbalancewith, setissettlementopen,
   };
   return (
     <form onSubmit={handleSubmit(Onsubmit)}>
-      <div className="h-76 p-2 space-y-2">
-        <div className='flex justify-between'>
-          <h3 className='font-semibold text-gray-800 center-flex gap-2 w-fit'> <TbCreditCardPay className='size-6' />Direct Payment</h3>
+      <div className="h-auto p-2 space-y-2">
+        <div className='flex flex-col sm:flex-row sm:justify-between gap-1'>
+          <h3 className='font-semibold text-gray-800 flex items-center gap-2 w-fit text-sm sm:text-base'> <TbCreditCardPay className='size-5 sm:size-6' />Direct Payment</h3>
           {errors.amount && (
-            <p className="text-red-600 text-sm mt-1">{errors.amount.message}</p>
+            <p className="text-red-600 text-xs sm:text-sm mt-1">{errors.amount.message}</p>
           )}
         </div>
-        <div className="progress h-25 rounded-lg shadow-md  p-4 bg-white ">
+        <div className="progress h-20 sm:h-25 rounded-lg shadow-md  p-3 sm:p-4 bg-white ">
           <div className="amounts flex justify-between mt-2">
-            <div className="remaining font-bold ">Rs.{(remaining < 0 ? 0 : remaining)}</div>
-            <div className="paid font-bold ">{`Rs.${Math.abs(CurrentDebt).toLocaleString()}`}</div>
+            <div className="remaining font-bold text-sm sm:text-base">Rs.{(remaining < 0 ? 0 : remaining)}</div>
+            <div className="paid font-bold text-sm sm:text-base">{`Rs.${Math.abs(CurrentDebt).toLocaleString()}`}</div>
           </div>
           <div className="progress-bar-container relative">
             <div className="progress-bar w-full h-3 bg-gray-200 rounded-full mt-1 overflow-hidden">
@@ -125,12 +125,12 @@ export const Settle = ({ CurrentFriend, Currentbalancewith, setissettlementopen,
                 width: `${remaining < 0 ? 0 : percentage}%`
               }}></div>
             </div>
-            <div className="total absolute  right-0  mt-1 text-sm">Total Debt</div>
-            <div className="remaining absolute  left-0 mt-1 text-sm">Remaining</div>
+            <div className="total absolute  right-0  mt-1 text-xs sm:text-sm">Total Debt</div>
+            <div className="remaining absolute  left-0 mt-1 text-xs sm:text-sm">Remaining</div>
           </div>
 
         </div>
-        <div className="settle-input-container center-flex shadow-md w-full border-l">
+        <div className="settle-input-container flex flex-col items-center shadow-md w-full border-l p-2 sm:p-0">
           <Controller
             name='amount'
             control={control}
@@ -158,14 +158,14 @@ export const Settle = ({ CurrentFriend, Currentbalancewith, setissettlementopen,
             }
           />
           <div className="note">
-            <p className='text-sm text-text-secondary'>
+            <p className='text-xs sm:text-sm text-text-secondary break-words'>
               <span className='font-semibold'> Note:</span>This will log a direct payment between you and {Memberdetails(Currentbalancewith)?.Name}, and adjust the net balances accordingly.
             </p>
           </div>
         </div>
-        <div className="actions mt-4 center-flex flex-col gap-2">
+        <div className="actions mt-4 flex items-center flex-col gap-2">
           <Paybtn isSubmitting={isSubmitting} />
-          <button type='button' className="underline text-gray-800 font-semibold cursor-pointer" onClick={() => setissettlementopen(false)}>Cancel</button>
+          <button type='button' className="underline text-gray-800 font-semibold cursor-pointer text-sm sm:text-base" onClick={() => setissettlementopen(false)}>Cancel</button>
         </div>
       </div>
     </form>

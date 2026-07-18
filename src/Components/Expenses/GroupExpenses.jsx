@@ -23,6 +23,7 @@ import {
   IoSearchOutline,
 } from "react-icons/io5";
 import dayjs from 'dayjs';
+
 export const expenseGroupSorts = [
   {
     label: "New to Old",
@@ -70,6 +71,7 @@ export const Expenses = () => {
       type: "New to Old",
     }
   })
+  
   const renderedData = useMemo(() => {
     let result = [...Expenses];
     switch (queryOptions.Sort.type) {
@@ -114,6 +116,7 @@ export const Expenses = () => {
   }, [
     queryOptions
   ]);
+  
   const emptyStates = {
     noData: {
       title: "No expenses in this group",
@@ -133,6 +136,7 @@ export const Expenses = () => {
       icon: <CiFilter className="size-10 text-primary" />,
     },
   };
+  
   const Openmodel = () => setpopup(true)
   const Closemodel = () => setpopup(false)
 
@@ -141,9 +145,9 @@ export const Expenses = () => {
       variants={pageContainerVariants}
       initial="hidden"
       animate="visible"
-      className='Expense-container'
+      className='Expense-container h-full overflow-auto scrollbar-hide relative pt-20 md:pt-0 pb-10'
     >
-      <motion.div variants={itemVariants} className="header h-25 flex px-10 items-center justify-between">
+      <motion.div variants={itemVariants} className="header min-h-[5rem] flex px-4 md:px-10 items-center justify-between flex-wrap gap-4">
         <div className="group-name center-flex gap-3">
           <button
             className="backbtn card-b p-2 rounded-full cursor-pointer group trans hover:scale-102 active:scale-95"
@@ -151,20 +155,22 @@ export const Expenses = () => {
           >
             <IoReturnUpBack className='size-6 group-hover:text-primary' />
           </button>
-          <h3 className='text-3xl'>Expenses</h3>
+          <h3 className='text-2xl md:text-3xl font-semibold'>Expenses</h3>
         </div>
-        {Group.statusid !== "Freeze" && <div className="actions center-flex gap-3">
-          <Addexpensebtn />
-        </div>}
+        {Group.statusid !== "Freeze" && (
+          <div className="actions center-flex gap-3">
+            <Addexpensebtn />
+          </div>
+        )}
       </motion.div>
-      <motion.div variants={itemVariants} className='flex items-center justify-between mt-3 mx-auto container'>
-        <div className="search flex gap-4 py-2 items-center mt-4">
+      <motion.div variants={itemVariants} className='flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3 mx-auto container px-4 md:px-6 gap-4'>
+        <div className="search flex gap-4 py-2 items-center w-full md:w-80 lg:w-96">
           <Input variant={"Expense"} queryOptions={queryOptions} setqueryOptions={setqueryOptions} />
         </div>
-        <div className='center-flex gap-5'>
+        <div className='center-flex gap-5 w-full sm:w-auto justify-end'>
           {!(queryOptions.Filter.type === "" && queryOptions.Sort.type === "New to Old") &&
             <button
-              className='cursor-pointer text-primary font-semibold underline'
+              className='cursor-pointer text-primary font-semibold underline text-sm md:text-base'
               onClick={() => {
                 setqueryOptions(prev => (
                   {
@@ -185,21 +191,23 @@ export const Expenses = () => {
                 ))
               }}
             >Clear all</button>}
-          <button className="filter bg-white shadow-md  p-2 rounded-lg cursor-pointer hover:text-primary hover:scale-105 trans center-flex" onClick={() => setisFilteropen(true)} title='sort & filters'>
-            <CiFilter className='size-5' />
+          <button className="filter bg-white shadow-md p-2 rounded-lg cursor-pointer hover:text-primary hover:scale-105 trans center-flex" onClick={() => setisFilteropen(true)} title='sort & filters'>
+            <CiFilter className='size-5 md:size-6' />
           </button>
         </div>
       </motion.div>
-      <motion.div variants={cardVariants} className="Expense-container mx-auto container mt-4">
-        <h2 className='text-xl font-semibold mb-2 center-flex gap-1 w-fit'>
+      <motion.div variants={cardVariants} className="Expense-container mx-auto container mt-4 px-4 md:px-6">
+        <h2 className='text-lg md:text-xl font-semibold mb-2 center-flex gap-1 w-fit'>
           Expenses <span><GiExpense /></span>
         </h2>
         <FilterSortPanel queryOptions={queryOptions} type="expense" />
-        {queryOptions.Search.value !== '' && <h2 className='text-text-secondary my-2'>Showing : <span className='font-semibold'> {`${renderedData.length} 
+        
+        {queryOptions.Search.value !== '' && <h2 className='text-text-secondary text-sm md:text-base my-2'>Showing : <span className='font-semibold'> {`${renderedData.length} 
         ${renderedData.length > 1 ? "Results" : "Result"}
         for ${queryOptions.Search.value}`} </span></h2>}
+        
         {renderedData.length > 0 ? (
-          <motion.div variants={pageContainerVariants} className="expenses grid grid-cols-3 gap-3">
+          <motion.div variants={pageContainerVariants} className="expenses grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-5">
             {renderedData.map((expense, index) => (
               <motion.div key={index} variants={cardVariants} >
                 <ExpenseCard
@@ -219,12 +227,13 @@ export const Expenses = () => {
             description={queryOptions.Search.value.trim() !== '' ? emptyStates.noSearchResults.description : queryOptions.Filter.active ? emptyStates.noFilterResults.description : emptyStates.noData.description}
             textsize=""
           >
-            <div className="p-10 shadow-md bg-gray-50 rounded-full">
+            <div className="p-8 md:p-10 shadow-md bg-gray-50 rounded-full">
               {queryOptions.Search.value.trim() !== '' ? emptyStates.noSearchResults.icon : queryOptions.Filter.active ? emptyStates.noFilterResults.icon : emptyStates.noData.icon}
             </div>
           </UniversalEmptyState>
         )}
       </motion.div>
+      
       <Basemodel isOpen={popup} Closemodel={Closemodel} title="Expense Details">
         <Expensedetails expenseid={CurrentExpenseid} />
       </Basemodel>

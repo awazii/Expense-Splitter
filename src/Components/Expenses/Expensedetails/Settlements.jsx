@@ -9,6 +9,7 @@ import { UniversalEmptyState } from '../../UniversalEmptyState';
 import { RiHandCoinLine } from "react-icons/ri";
 import { pageContainerVariants, cardVariants, headerVariants } from "../../../utils/animation";
 import { FaBan } from "react-icons/fa";
+import { FaArrowDownLong } from "react-icons/fa6";
 export const Settlements = ({ Expense }) => {
   const Settlements = [];
   Expense.Settlements.forEach(settlement => {
@@ -30,11 +31,18 @@ export const Settlements = ({ Expense }) => {
     return temp;
   }
 
-  return (
-    <div className='size-full bg-white shadow-md rounded-lg p-4'>
-      <h3
-        className='font-semibold text-lg center-flex w-fit gap-2'
-      >
+  function GetPerson(id) {
+    const permanent = Memberdetails(id);
+    console.log(permanent)
+    if (permanent) return { ...permanent, type: permanent.type || "permanent" };
+    const temp = GetTemp(id);
+    if (temp) return { ...temp, type: "temporary" };
+    return null;
+  }
+
+ return (
+    <div className='w-full h-full bg-white shadow-md rounded-lg p-4'>
+      <h3 className='font-semibold text-lg flex items-center gap-2 mb-4'>
         Final Settlements <span><FaMoneyBillTransfer className='size-6' /></span>
       </h3>
 
@@ -43,101 +51,75 @@ export const Settlements = ({ Expense }) => {
           variants={pageContainerVariants}
           initial="hidden"
           animate="visible"
-          className='debts h-138 mt-2 overflow-auto space-y-4'
+          className='space-y-6 overflow-y-auto max-h-[500px]'
         >
-          {Settlements.map((settlement, index) => (
-            <div
-              key={index}
-              className="debt w-full min-h-30 center-flex justify-between px-5 gap-2"
-            >
-              <motion.div variants={cardVariants} className="Debtor w-80 rounded-lg h-25 center-flex gap-2 border-l relative">
-                <div className="flag absolute top-2 right-2 scale-x-[-1]">
-                  <GiPayMoney className='text-red-600 size-5' />
-                </div>
-                <div className={`logo size-13 rounded-full relative ${Memberdetails(settlement.from)?.isBanned ? "border-red-500" : "border-primary"} border center-flex`}>
-                  {GetTemp(settlement.from)?.type === "temporary" ? (
-                    <div className="friend-img-container size-12 bg-neutral-300 rounded-full center-flex">
-                      <IoPerson className='size-5 text-neutral-500' />
+          {Settlements.map((settlement, index) => {
+            const debtor = GetPerson(settlement.from);
+            return (
+            <div key={index} className="debt w-full flex flex-col sm:flex-row items-center justify-center p-2 border-b border-gray-100 last:border-0">
+  
+              <motion.div variants={cardVariants} className="flex-1 w-full  rounded-lg p-3 flex items-center gap-3 border border-b-light lg:p-2">
+                <div className={`relative size-12  border-2 rounded-full shrink-0 ${debtor.isBanned ? " border-red-500" : "border-primary"}`}>
+                  {debtor?.type === "temporary" ? (
+                    <div className={`size-12 bg-neutral-300 rounded-full center-flex`}>
+                      <IoPerson className='size-6 text-neutral-500' />
                     </div>
                   ) : (
-                    <>
-                      <img src={Memberdetails(settlement.from)?.Image} className='Img-c' alt="friend-img" />
-                      <div className={` absolute top-9/12 left-1 p-1 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${Memberdetails(settlement.from)?.isBanned ? "block" : "hidden"}`}>
-                        <FaBan className="size-2" />
-                      </div>
-                    </>
+                    <img src={debtor?.Image} className='Img-c rounded-full' alt="debtor" />
+                  )}
+                  {debtor?.isBanned && (
+                    <div className="absolute -bottom-1 -right-1 bg-red-500 rounded-full p-0.5 text-white"><FaBan className="size-2" /></div>
                   )}
                 </div>
-                <div className="info w-35">
-                  <div className="name font-semibold text-sm">
-                    {Memberdetails(settlement.from)?.Name || GetTemp(settlement.from)?.Name}
-                  </div>
-                  <div className={`description text-[12px]  ${Memberdetails(settlement.from)?.isBanned ? "text-red-600 font-semibold" : "text-text-secondary"}`}>
-                    {Memberdetails(settlement.from)?.isBanned ? "(Banned) " : Memberdetails(settlement.from)?.Bio ? Memberdetails(settlement.from)?.Bio : "temporary"}
-                  </div>
-                  <p className='font-semibold text-right text-red-600'>
-                    Rs. {settlement.totalAmount.toLocaleString()}
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-semibold text-sm truncate">{debtor?.Name}</h4>
+                  <p className="text-[11px] text-text-secondary truncate">
+                    {debtor?.type === "temporary" ? "Temporary Friend" : debtor?.Bio}
                   </p>
+                  <p className="text-xs text-red-600 font-bold">Rs. {settlement.totalAmount.toLocaleString()}</p>
                 </div>
+                <GiPayMoney className="text-red-600 size-5 shrink-0 transform scale-x-[-1]" />
               </motion.div>
-              <div className="marker w-20 h-10 rounded-2xl center-flex">
-                <FaArrowRightLong className='text-primary size-10' />
+              <div className="p-2">
+                <FaArrowRightLong className='hidden sm:block text-primary size-6' />
+                <FaArrowDownLong className='sm:hidden text-primary size-6' />
               </div>
-              <motion.div variants={cardVariants} className="creditors w-75 space-y-2 my-2">
-                {settlement.to.map((to, idx) => (
-                  <div key={idx} className="creditor rounded-lg h-25 center-flex gap-2 border-l relative">
-                    <div className="flag absolute top-2 right-2">
-                      <GiReceiveMoney className='text-green-600 size-5' />
-                    </div>
-                    <div className={`logo size-13 rounded-full relative ${Memberdetails(to.id)?.isBanned ? "border-red-500" : "border-primary"} border center-flex`}>
-                      {GetTemp(to.id)?.type === "temporary" ? (
-                        <div className="friend-img-container size-12 bg-neutral-300 rounded-full center-flex">
-                          <IoPerson className='size-5 text-neutral-500' />
+              <motion.div variants={cardVariants} className="flex-1 w-full space-y-2">
+                {settlement.to.map((to, idx) => {
+                  const creditor = GetPerson(to.id);
+                  return (
+                  <div key={idx} className=" rounded-lg p-3 lg:p-2 flex items-center gap-3 border border-b-light">
+                   <div className={`relative size-12  border-2 rounded-full shrink-0 ${creditor.isBanned ? " border-red-500" : "border-primary"}`}>
+                      {creditor?.type === "temporary" ? (
+                        <div className="size-12 bg-neutral-300 rounded-full center-flex">
+                          <IoPerson className='size-6 text-neutral-500' />
                         </div>
                       ) : (
-                        <>      
-                        <img src={Memberdetails(to.id)?.Image} className='Img-c' alt="friend-img" />         
-                        <div className={` absolute top-9/12 left-1 p-1 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${Memberdetails(to.id)?.isBanned ? "block" : "hidden"}`}>
-                          <FaBan className="size-2" />
-                        </div>
-                        </>
-
+                        <img src={creditor?.Image} className='Img-c rounded-full' alt="creditor" />
                       )}
                     </div>
-                    <div className="info w-35">
-                      <div className="name font-semibold text-sm">
-                        {Memberdetails(to.id)?.Name || GetTemp(to.id)?.Name}
-                      </div>
-                      <p className={`description text-[12px] ${Memberdetails(to.id)?.isBanned ? "text-red-600 font-semibold" : "text-text-secondary"}`}>
-                        {Memberdetails(to.id)?.isBanned ? "(Banned) " : Memberdetails(to.id)?.Bio ? Memberdetails(to.id)?.Bio : "temporary"}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-sm truncate">{creditor?.Name}</h4>
+                      <p className="text-[11px] text-text-secondary truncate">
+                        {creditor?.type === "temporary" ? "Temporary Friend" : creditor?.Bio}
                       </p>
-                      <p className='font-semibold text-right text-green-600'>
-                        Rs. {to.amount.toLocaleString()}
-                      </p>
+                      <p className="text-xs text-green-600 font-bold">Rs. {to.amount.toLocaleString()}</p>
                     </div>
+                    <GiReceiveMoney className='text-green-600 size-5 shrink-0' />
                   </div>
-                ))}
+                  )
+                })}
               </motion.div>
             </div>
-          ))}
+            )
+          })}
         </motion.div>
       ) : (
-        <motion.div
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          className='h-full'
-        >
-          <UniversalEmptyState
-            title="No settlements"
-            textsize="text-sm"
-            description="No partial payments or settlements have been made for this expense."
-          >
-            <div className="p-8 shadow-md border-l rounded-full">
-              <RiHandCoinLine className="size-8 text-primary" />
-            </div>
-          </UniversalEmptyState>
-        </motion.div>
+        <UniversalEmptyState title="No settlements" textsize="text-sm" description="No payments made yet.">
+          <div className="p-8 shadow-md border-l rounded-full">
+            <RiHandCoinLine className="size-8 text-primary" />
+          </div>
+        </UniversalEmptyState>
       )}
     </div>
   );

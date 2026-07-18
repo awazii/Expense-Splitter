@@ -14,16 +14,16 @@ import { motion } from "framer-motion";
 const InsightCard = ({ icon, title, description, value }) => (
   <motion.div
     variants={sectionVariants}
-    className="flex flex-col justify-between p-4 rounded-xl shadow-md w-full border-l"
+    className="flex flex-col justify-between p-3 sm:p-4 rounded-xl shadow-md w-full border-l min-w-0"
   >
-    <div className="flex items-center gap-3 mb-2">
-      {icon}
-      <div>
-        <p className="text-sm font-semibold text-gray-800">{title}</p>
-        {description && <p className="text-xs text-gray-500">{description}</p>}
+    <div className="flex items-center gap-2 sm:gap-3 mb-2 min-w-0">
+      <div className="shrink-0">{icon}</div>
+      <div className="min-w-0">
+        <p className="text-xs sm:text-sm font-semibold text-gray-800 truncate">{title}</p>
+        {description && <p className="text-[11px] sm:text-xs text-gray-500 truncate">{description}</p>}
       </div>
     </div>
-    <p className="text-md font-bold text-gray-900">{value}</p>
+    <p className="text-sm sm:text-md font-bold text-gray-900 truncate">{value}</p>
   </motion.div>
 );
 export const Insights = () => {
@@ -41,42 +41,42 @@ export const Insights = () => {
       title: "Top Spending Group",
       description: `${topGroup?.Name}`,
       value: `Rs. ${topGroup?.totalAmount.toLocaleString()}`,
-      icon: <HiMiniUserGroup className="text-[#f68340] text-xl" />,
+      icon: <HiMiniUserGroup className="text-[#f68340] text-lg sm:text-xl" />,
     },
     {
       id: 2,
       title: "Highest Contributor",
       description: `${HighesContributor?.Name}`,
       value: `Rs. ${HighesContributor?.spendings.toLocaleString()}`,
-      icon: <IoPerson className="text-[#2196f3] text-xl" />,
+      icon: <IoPerson className="text-[#2196f3] text-lg sm:text-xl" />,
     },
     {
       id: 3,
       title: "Highest Debtor",
       description: debtornetbalance > 0 ? `${HighestDebtor?.Name}`: 'No data yet',
       value:  debtornetbalance > 0 ? `Rs. ${debtornetbalance.toLocaleString()}` : 'All settled',
-      icon: <IoPerson className="text-[#e53935] text-xl" />,
+      icon: <IoPerson className="text-[#e53935] text-lg sm:text-xl" />,
     },
     {
       id: 4,
       title: "Total Expenses",
       description: `${Expenses.length} expenses recorded`,
       value: `Rs. ${Totalamount.toLocaleString()}`,
-      icon: <GiExpense className="text-[#4caf50] text-xl" />
+      icon: <GiExpense className="text-[#4caf50] text-lg sm:text-xl" />
     }
   ];
 
   return (
-    <div className="w-full max-w-xl mx-auto p-4">
+    <div className="w-full 2xl:max-w-xl mx-auto p-3 sm:p-4 overflow-auto h-full">
       <motion.div
         variants={headerVariants}
         initial="hidden"
         animate="visible"
-        className="flex justify-between items-center mb-4"
+        className="flex justify-between items-center mb-4 gap-2"
       >
-        <h2 className="text-2xl font-bold text-gray-800">Insights</h2>
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800">Insights</h2>
         <button
-          className="text-primary text-sm font-semibold hover:underline cursor-pointer"
+          className="text-primary text-xs sm:text-sm font-semibold hover:underline cursor-pointer whitespace-nowrap"
           onClick={() => { Navigate("/Analytics") }}
         >
           View Analytics
@@ -87,7 +87,7 @@ export const Insights = () => {
           variants={pageContainerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          className="grid grid-cols-1 2xl:grid-cols-2 gap-3 sm:gap-4 lg:h-auto h-50"
         >
           {insightsData.map(item => (
             <InsightCard key={item.id} {...item} />

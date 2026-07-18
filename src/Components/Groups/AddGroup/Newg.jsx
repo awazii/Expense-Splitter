@@ -14,17 +14,17 @@ import { useDispatch } from 'react-redux'
 import { addGroup, selectAllGroups, deleteGroup } from '../../../store/GroupSlice'
 import { FaBan } from "react-icons/fa"
 export const RenderSelectfriends = React.memo(({ Friends, setSelectedfriends, Selectedfriends, styles }) => {
-  return (<div className={`friend-lists ${styles} h-60 overflow-auto  grid gap-3  border-b-light px-2 border p-2 rounded-lg`}>
+  return (<div className={`friend-lists ${styles} h-60 overflow-auto  grid gap-2 sm:gap-3  border-b-light px-2 border p-2 rounded-lg`}>
     {Friends.map((friend, index) => {
       return (
-        <label key={index} className={`select-friend rounded-lg shadow-md h-30 bg-neutral-100 flex flex-col items-center justify-center gap-1 pt-1 relative trans ${friend.isBanned ? 'cursor-not-allowed opacity-50 ' : 'cursor-pointer'}`}>
-          <div className={`friend-img-container size-16 relative rounded-full center-flex ${friend.isBanned ? "border-red-500" : "border-primary"} border-2`}>
-            <img src={friend.Image} className='Img-c' alt="friend-img" />
+        <label key={index} className={`select-friend rounded-lg shadow-md h-auto min-h-[110px] sm:h-30 bg-neutral-100 flex flex-col items-center justify-center gap-1 pt-1 pb-2 relative trans min-w-0 ${friend.isBanned ? 'cursor-not-allowed opacity-50 ' : 'cursor-pointer'}`}>
+          <div className={`friend-img-container size-12 sm:size-16 relative rounded-full center-flex shrink-0 ${friend.isBanned ? "border-red-500" : "border-primary"} border-2`}>
+            <img src={friend.Image} className='Img-c w-full h-full object-cover rounded-full' alt="friend-img" />
             {friend.isBanned && <div className='absolute p-1 rounded-full center-flex bg-red-500/90 left-1 top-9/12'><FaBan className='text-white size-3' /></div>}
           </div>
-          <div className="friend-info center-flex flex-col">
-            <h2 className='text-sm'>{friend.Name}</h2>
-            <p className={`text-[12px] ${friend.isBanned ? 'text-red-500 font-semibold' : 'text-text-secondary'}`}>
+          <div className="friend-info center-flex flex-col min-w-0 px-1 text-center">
+            <h2 className='text-xs sm:text-sm truncate w-full'>{friend.Name}</h2>
+            <p className={`text-[10px] sm:text-[12px] truncate w-full ${friend.isBanned ? 'text-red-500 font-semibold' : 'text-text-secondary'}`}>
               {friend.isBanned ? '(Banned)' : friend.Bio}
             </p>
           </div>
@@ -77,12 +77,12 @@ export const Newg = React.memo(() => {
     setValue("Members", Selectedfriends, { shouldValidate: true });
   }, [Selectedfriends, setValue])
   return (
-    <div className='container bg-white shadow-lg rounded-2xl mx-auto h-fit w-180  my-6 p-3 relative l center-flex flex-col gap-0  '>
+    <div className='container bg-white shadow-lg rounded-2xl mx-auto h-fit w-[94%] sm:w-[90%] lg:w-180  my-4 sm:my-6 p-3 relative l center-flex flex-col gap-0  '>
       <div className="title center-flex flex-col gap-0">
-        <h2 className='text-2xl font-semibold flex items-center gap-2 text-center p-2 pb-0'>Add New Group<span><HiMiniUserGroup /></span></h2>
-        <h4 className='text-text-secondary mr-2'>Start with intention. End with legacy.</h4>
+        <h2 className='text-xl sm:text-2xl font-semibold flex items-center gap-2 text-center p-2 pb-0'>Add New Group<span><HiMiniUserGroup /></span></h2>
+        <h4 className='text-text-secondary text-sm sm:text-base mr-2 text-center'>Start with intention. End with legacy.</h4>
       </div>
-      <form onSubmit={handleSubmit(onsubmit)} className='Friend-form  m-3 space-y-3 flex flex-col '>
+      <form onSubmit={handleSubmit(onsubmit)} className='Friend-form  m-2 sm:m-3 space-y-3 flex flex-col w-full'>
         <Controller
           name="Name"
           control={control}
@@ -107,12 +107,12 @@ export const Newg = React.memo(() => {
                   }
                 }}
               />
-              {fieldState.error && <p className='text-red-600 text-sm'>{fieldState.error.message}</p>}
+              {fieldState.error && <p className='text-red-600 text-xs sm:text-sm'>{fieldState.error.message}</p>}
             </>
           )}
         />
         <div className='categories'>
-          <h4 className='text-md font-semibold my-3'>Where are you headed?</h4>
+          <h4 className='text-sm sm:text-md font-semibold my-3'>Where are you headed?</h4>
           <Controller
             name="Category"
             control={control}
@@ -125,27 +125,27 @@ export const Newg = React.memo(() => {
                     field.onChange(e);
                   }}
                 />
-                {fieldState.error && <p className='text-red-600 text-sm mt-1'>{fieldState.error.message}</p>}
+                {fieldState.error && <p className='text-red-600 text-xs sm:text-sm mt-1'>{fieldState.error.message}</p>}
               </>
             )} />
         </div>
         <div className='select-friends-container w-full '>
-          <div className='select-friend-option flex items-center justify-between'>
-            <h4 className='text-md font-semibold my-2 '>Who's coming with you?
+          <div className='select-friend-option flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2'>
+            <h4 className='text-sm sm:text-md font-semibold my-2 '>Who's coming with you?
             </h4>
-            <div className='center-flex gap-2'>
-              <div className=' w-25 py-2 px-3 bg-neutral-100 rounded-lg  '>
+            <div className='flex flex-wrap items-center gap-2'>
+              <div className=' w-auto py-2 px-3 bg-neutral-100 rounded-lg  '>
                 <Selectall setSelected={setSelectedfriends} members={Friends} Selected={Selectedfriends}>
-                  <h5 className='text-[13px] text-text-secondary'>Select all</h5>
+                  <h5 className='text-[12px] sm:text-[13px] text-text-secondary whitespace-nowrap'>Select all</h5>
                 </Selectall>
               </div>
               <Choosef setisPinselected={setisPinselected} />
             </div>
           </div>
           <div className='select-friends   mx-auto mt-3  '>
-            <RenderSelectfriends Friends={Friends} setSelectedfriends={setSelectedfriends} Selectedfriends={Selectedfriends} styles="w-165 grid-cols-5  " />
+            <RenderSelectfriends Friends={Friends} setSelectedfriends={setSelectedfriends} Selectedfriends={Selectedfriends} styles="w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" />
           </div>
-          {errors.Members && <p className='text-red-500 text-sm text-center mt-2'>{errors.Members.message}</p>}
+          {errors.Members && <p className='text-red-500 text-xs sm:text-sm text-center mt-2'>{errors.Members.message}</p>}
         </div>
         <div className='pin-check flex gap-2 mt-2'>
           <Controller
@@ -156,7 +156,7 @@ export const Newg = React.memo(() => {
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.checked)}
               >
-                <h3 className='text-sm'>Do you want to pin this Group?</h3>
+                <h3 className='text-xs sm:text-sm'>Do you want to pin this Group?</h3>
               </Checkbox>
             )}
           />
@@ -164,7 +164,7 @@ export const Newg = React.memo(() => {
         <div className='center-flex'>
           <Newbtn isSubmitting={isSubmitting} />
         </div>
-        {issubmitted && <p className='text-green-500 text-sm mt-1 text-center '>Group added successfully!</p>}
+        {issubmitted && <p className='text-green-500 text-xs sm:text-sm mt-1 text-center '>Group added successfully!</p>}
       </form>
     </div>
   )

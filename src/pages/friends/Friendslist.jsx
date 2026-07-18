@@ -110,7 +110,7 @@ export const Friendslist = memo(() => {
 
     return result;
   }, [
-    queryOptions
+    queryOptions, Friends
   ]);
   const emptyStates = {
     noSearchResults: {
@@ -145,16 +145,16 @@ export const Friendslist = memo(() => {
       variants={pageContainerVariants}
       initial="hidden"
       animate="visible"
-      className='Friends'
+      className='Friends px-6 sm:px-2 md:px-2 lg:px-4'
     >
-      <motion.div variants={itemVariants} className='flex items-center justify-between mt-3'>
-        <div className="search flex gap-4 py-2 items-center">
+      <motion.div variants={itemVariants} className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3'>
+        <div className="search flex gap-4 py-2 items-center w-full md:w-80 lg:w-96">
           <Input variant={"Friend"} queryOptions={queryOptions} setqueryOptions={setqueryOptions} />
         </div>
-        <div className='center-flex gap-5'>
+        <div className='flex flex-wrap items-center gap-3 sm:gap-5'>
           {!(queryOptions.Filter.type === "" && queryOptions.Sort.type === "Old to New") &&
             <button
-              className='cursor-pointer text-primary font-semibold underline'
+              className='cursor-pointer text-primary font-semibold underline text-sm sm:text-base'
               onClick={() => {
                 setqueryOptions(prev => (
                   {
@@ -179,24 +179,24 @@ export const Friendslist = memo(() => {
 
       </motion.div>
       {(!queryOptions.Filter.active && queryOptions.Search.value === '') && <motion.div variants={itemVariants} className="pinned-friends mt-2 p-2">
-        <h2 className='text-xl font-semibold mb-2 center-flex gap-1 w-20'>
+        <h2 className='text-lg sm:text-xl font-semibold mb-2 center-flex gap-1 w-fit'>
           Pinned <span><TbPinnedFilled className='rotate-45' /></span>
         </h2>
-        {pinnedFriends.length > 0 && (<motion.div variants={pageContainerVariants} className="pinned-friends grid grid-cols-6 gap-3 border-b border-b-light pb-5">
+        {pinnedFriends.length > 0 && (<motion.div variants={pageContainerVariants} className="pinned-friends grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 border-b border-b-light pb-5">
           {pinnedFriends.map((friend, index) => (
-            <motion.div key={friend.id} variants={cardVariants} className='pinned-friend bg-white shadow-md w-60 px-1 py-4 pb-2 h-fit rounded-lg relative flex flex-col gap-2 items-center'>
-              <div className="about flex center-flex gap-3">
-                <div className={`profile size-20 rounded-full relative border-2 ${friend.isBanned ? "border-red-500" : "border-primary"} center-flex`}>
-                  <img className='Img-c' src={friend.Image} alt="" />
-                  <div className={`absolute top-9/12 left-1 p-2 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${friend.isBanned ? "block" : "hidden"}`}>
+            <motion.div key={friend.id} variants={cardVariants} className='pinned-friend bg-white shadow-md w-full px-2 sm:px-1 py-4 pb-2 h-fit rounded-lg relative flex flex-col gap-2 items-center'>
+              <div className="about flex items-center gap-3 w-full min-w-0">
+                <div className={`profile size-14 sm:size-20 rounded-full relative border-2 shrink-0 ${friend.isBanned ? "border-red-500" : "border-primary"} center-flex`}>
+                  <img className='Img-c w-full h-full object-cover rounded-full' src={friend.Image} alt="" />
+                  <div className={`absolute top-9/12 left-1 p-1 sm:p-2 opacity-90 bg-red-500 rounded-full text-white shadow-lg ${friend.isBanned ? "block" : "hidden"}`}>
                     <FaBan className="size-2" />
                   </div>
                 </div>
-                <div className="info">
-                  <h3 className="name text-text-primary text-md font-semibold">
-                    {friend.Name} <span className='text-[12px]'>{friend.id === "admin_01" ? "(Admin)" : ""}</span>
+                <div className="info flex-1 min-w-0 pr-4">
+                  <h3 className="name text-text-primary text-sm sm:text-md font-semibold truncate">
+                    {friend.Name} <span className='text-[11px] sm:text-[12px]'>{friend.id === "admin_01" ? "(Admin)" : ""}</span>
                   </h3>
-                  <h4 className={`bio ${friend.isBanned ? "text-red-500 font-semibold" : "text-text-secondary"} text-sm`}>
+                  <h4 className={`bio ${friend.isBanned ? "text-red-500 font-semibold" : "text-text-secondary"} text-xs sm:text-sm truncate`}>
                     {friend.isBanned ? " (banned)" : friend.Bio}
                   </h4>
                 </div>
@@ -223,14 +223,14 @@ export const Friendslist = memo(() => {
         </motion.div>)}
       </motion.div>}
       <motion.div variants={itemVariants} className="friendslist-container min-h-60 border-b-light p-2">
-        <h2 className='text-xl font-semibold mb-2 center-flex gap-1 w-20'>
+        <h2 className='text-lg sm:text-xl font-semibold mb-2 center-flex gap-1 w-fit'>
           Friends <span><FaUserFriends /></span>
         </h2>
         <FilterSortPanel queryOptions={queryOptions} type="friend" />
-        {queryOptions.Search.value !== '' && <h2 className='text-text-secondary my-2'>Showing : <span className='font-semibold'> {`${renderedData.length} 
+        {queryOptions.Search.value !== '' && <h2 className='text-text-secondary my-2 text-sm sm:text-base break-words'>Showing : <span className='font-semibold'> {`${renderedData.length} 
         ${renderedData.length > 1 ? "Results" : "Result"}
         for ${queryOptions.Search.value}`} </span></h2>}
-        {renderedData.length > 0 && <motion.div variants={pageContainerVariants} className="friendslist grid grid-cols-4 gap-x-2 gap-y-2 mb-5">
+        {renderedData.length > 0 && <motion.div variants={pageContainerVariants} className="friendslist grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-2 sm:gap-x-3 gap-y-2 sm:gap-y-3 mb-5">
           {renderedData.map((friend) => (
             <motion.div key={friend.id} variants={cardVariants} ref={(el) => Setref(el, friend.id)}>
               <FriendCard friend={friend} />

@@ -11,6 +11,7 @@ import { selectAllFriends, selectPinnedFriends } from '../../../store/FriendsSli
 import { useFormContext, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { FaBan } from "react-icons/fa";
+
 export const Stepone = ({ }) => {
     const { control, register, setValue, trigger, getValues, watch, setError, clearErrors, formState: { errors } } = useFormContext();
     const temporary = watch("temporary") || [];
@@ -38,7 +39,7 @@ export const Stepone = ({ }) => {
         const exists = current.some(
             friend => friend.Name.toLowerCase() === name.toLowerCase()
         );
-        if(exists) return
+        if (exists) return
         clearErrors("tempname");
         const id = `temp_${current.length + 1}`;
         const newFriend = { id, Name: name, type: "temporary" };
@@ -54,9 +55,10 @@ export const Stepone = ({ }) => {
     useEffect(() => {
         setValue("splitMembers", SelectedFriends, { shouldValidate: true });
     }, [SelectedFriends, setValue])
+
     return (
         <>
-            <div className="calculator-inputs flex gap-4 mt-4">
+            <div className="calculator-inputs flex flex-col md:flex-row gap-4 mt-4 w-full h-full p-4 sm:p-2">
                 <Controller
                     control={control}
                     name="expenseName"
@@ -68,7 +70,7 @@ export const Stepone = ({ }) => {
                     }}
                     render={({ field, fieldState }) => (
                         <>
-                            <CalculatorInput variant="Expense Name" width={"650px"} type="text"
+                            <CalculatorInput variant="Expense Name" width="w-full lg:w-70" type="text"
                                 value={field.value}
                                 onChange={(e) => {
                                     if (e.target.value.length <= 26) {
@@ -90,7 +92,7 @@ export const Stepone = ({ }) => {
                     }}
                     render={({ field, fieldState }) => (
                         <>
-                            <CalculatorInput variant="Total Amount" width={"280px"} type="number"
+                            <CalculatorInput variant="Total Amount" width="w-full lg:w-50" type="number"
                                 value={field.value}
                                 onChange={(e) => {
 
@@ -109,22 +111,22 @@ export const Stepone = ({ }) => {
                         </>
                     )} />
             </div>
-            <div className='select-friends-container w-full my-5'>
-                <div className='select-friends-container w-full '>
-                    <div className='select-friend-option flex items-center justify-between'>
-                        <h4 className='text-md font-semibold my-2 '>Select who shares this cost
+            <div className="select-friend-option flex flex-col gap-3 mt-4">
+                <div className='select-friends-container w-full'>
+                    <div className='select-friend-option flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2'>
+                        <h4 className='text-md font-semibold my-2'>Select who shares this cost
                         </h4>
-                        <div className='center-flex gap-2'>
-                            <div className=' w-25 py-2 px-3 bg-neutral-100  rounded-lg  '>
+                        <div className="flex flex-wrap items-center gap-2">
+                            <div className="w-auto py-2 px-3 bg-neutral-100 rounded-lg">
                                 <Selectall Selected={SelectedFriends}
                                     setSelected={setSelectedFriends} members={Friends}>
-                                    <h5 className='text-[13px] text-text-secondary'>Select all</h5>
+                                    <h5 className='text-[13px] text-text-secondary whitespace-nowrap'>Select all</h5>
                                 </Selectall>
                             </div>
                             <Choosef setisPinselected={setisPinselected} />
                         </div>
                     </div>
-                    <div className="adding-temporay-friends  h-15 p-2 flex gap-3 ">
+                    <div className="adding-temporay-friends p-2 flex flex-col sm:flex-row gap-3">
                         <Controller
                             control={control}
                             name="tempname"
@@ -156,33 +158,48 @@ export const Stepone = ({ }) => {
                             )} />
                         <Addtemp onClick={addTemporaryFriend} />
                     </div>
-                    {errors.tempname && <p className='text-red-500 text-sm'>{errors.tempname.message}</p>}
-                    <div className='select-friends   mx-auto mt-3  '>
-                        <div className="friend-lists  max-h-80 overflow-auto  grid grid-cols-6  gap-3  border-b-light px-2 ">
+                    {errors.tempname && <p className='text-red-500 text-sm px-2'>{errors.tempname.message}</p>}
+                    <div className='select-friends mx-auto mt-3 sm:mb-2 mb-10'>
+                        <div className="
+friend-lists
+max-h-80
+overflow-auto
+grid
+grid-cols-2
+sm:grid-cols-2
+md:grid-cols-2
+lg:grid-cols-4
+xl:grid-cols-5
+gap-2
+sm:gap-3
+px-1
+sm:px-2
+">
                             {Friends.map((friend, index) => {
                                 return (
-                                    <label key={index} className={`select-friend rounded-lg shadow-md  bg-neutral-100 flex flex-col items-center justify-center gap-1 pt-1 relative trans h-38 ${friend?.isBanned ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}  center-flex`}>
-                                        <div className={`size-16 rounded-full center-flex relative ${friend?.isBanned ? "border-red-500" : "border-primary"} border `}>
+                                    <label key={index} className={`select-friend rounded-lg shadow-md bg-neutral-100 flex flex-col items-center justify-center gap-2 p-2 sm:p-3 relative transition-all min-h-[130px] sm:min-h-[150px]
+${friend?.isBanned ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}>
+                                        <div className={`size-12 sm:size-16 rounded-full center-flex relative ${friend?.isBanned ? "border-red-500" : "border-primary"} border `}>
                                             {friend.type === "temporary" ? (
-                                                <div className="friend-img-container size-16 bg-neutral-300 rounded-full center-flex ">
-                                                    <IoPerson className='size-7 text-neutral-500' />
+                                                <div className="friend-img-container size-12 sm:size-16 bg-neutral-300 rounded-full center-flex ">
+                                                    <IoPerson className='size-5 sm:size-7 text-neutral-500' />
                                                 </div>
                                             ) : (
-                                                <>        
-                                                <img src={friend.Image} className='Img-c' alt="friend-img" />
-                                                {friend?.isBanned && (
-                                                    <div className="absolute top-8/10 left-1 p-1 opacity-90 bg-red-500 rounded-full text-white shadow-lg">
-                                                        <FaBan className="size-2" />
-                                                    </div>
-                                                )}
-                                                 </>
+                                                <>
+                                                    <img src={friend.Image} className='Img-c' alt="friend-img" />
+                                                    {friend?.isBanned && (
+                                                        <div className="absolute top-8/10 left-1 p-1 opacity-90 bg-red-500 rounded-full text-white shadow-lg">
+                                                            <FaBan className="size-2" />
+                                                        </div>
+                                                    )}
+                                                </>
                                             )}
                                         </div>
-                                        <div className="friend-info center-flex flex-col">
-                                            <h2 className='text-sm'>{friend.Name}</h2>
-                                            <p className={`text-[12px] ${friend?.isBanned ? "text-red-600 font-semibold" : "text-text-secondary"}`}>{
+                                        <div className="friend-info center-flex flex-col text-center">
+                                            <h2 className='text-xs sm:text-sm truncate max-w-full'>{friend.Name}</h2>
+                                            <p className={`text-[11px] sm:text-[12px] ${friend?.isBanned ? "text-red-600 font-semibold" : "text-text-secondary"}`}>{
                                                 friend.type === "temporary" ? "Temporary Friend" :
-                                                    friend.isBanned ? "(Banned)" : friend.Bio 
+                                                    friend.isBanned ? "(Banned)" : friend.Bio
                                             }</p>
                                         </div>
                                         <div className='absolute top-2 right-1'>
@@ -192,7 +209,7 @@ export const Stepone = ({ }) => {
                                 )
                             })}
                         </div>
-                        {errors.splitMembers && <p className='text-red-500 text-sm  mt-2'>{errors.splitMembers.message}</p>}
+                        {errors.splitMembers && <p className='text-red-500 text-sm mt-2'>{errors.splitMembers.message}</p>}
                     </div>
                 </div>
             </div>

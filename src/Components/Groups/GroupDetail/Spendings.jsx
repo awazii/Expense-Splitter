@@ -19,23 +19,23 @@ export const Balance = ({ CurrentGroup }) => {
   const Closemodel = () => setpopup(false)
 
   return (
-    <div className='p-5 flex flex-col h-full'>
+    <div className='p-3 sm:p-5 flex flex-col h-full overflow-auto'>
       <motion.div
         variants={headerVariants}
         initial="hidden"
         animate="visible"
-        className="header flex items-center justify-between h-fit"
+        className="header flex flex-col sm:flex-row items-start sm:items-center justify-between h-fit gap-2 sm:gap-0"
       >
-        <div className="info">
-          <div className="title center-flex w-fit gap-1">
-            <h3 className='font-semibold text-2xl'>Spendings</h3>
-            <IoIosWallet className='size-5' />
+        <div className="info min-w-0">
+          <div className="title flex items-center w-fit gap-1">
+            <h3 className='font-semibold text-lg sm:text-2xl'>Spendings</h3>
+            <IoIosWallet className='size-4 sm:size-5' />
           </div>
-          <p className='text-sm text-text-secondary'>
+          <p className='text-xs sm:text-sm text-text-secondary'>
             Track individual contributions across your group
           </p>
         </div>
-      {CurrentGroup.statusid !== "Freeze"  && <div className="add-friend mr-3">
+      {CurrentGroup.statusid !== "Freeze"  && <div className="add-friend sm:mr-3 shrink-0 self-end">
           <Addbtn onClick={() => setaddpopup(true)} />
         </div>}
       </motion.div>
@@ -43,7 +43,7 @@ export const Balance = ({ CurrentGroup }) => {
         variants={pageContainerVariants}
         initial="hidden"
         animate="visible"
-        className="friend-balances flex-1 h-fit mt-3 grid grid-cols-3 gap-3 auto-rows-min"
+        className="friend-balances flex-1 min-h-0 overflow-auto mt-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-3  gap-3 auto-rows-min"
       >
         {Members.map((friend, index) => (
           <motion.div

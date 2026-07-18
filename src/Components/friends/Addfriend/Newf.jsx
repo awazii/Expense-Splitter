@@ -71,15 +71,15 @@ export const Newfriend = () => {
     reset();
   };
   return (
-    <div className='container bg-white shadow-lg rounded-2xl mx-auto h-fit w-100 my-20 p-3'>
+    <div className='container bg-white shadow-lg rounded-2xl mx-auto h-fit w-[92%] sm:w-100 my-8 sm:my-20 p-3'>
       <div className="title center-flex flex-col gap-0">
-        <h2 className='text-2xl font-semibold flex items-center gap-2 text-center p-2 pb-0'>
+        <h2 className='text-xl sm:text-2xl font-semibold flex items-center gap-2 text-center p-2 pb-0'>
           Add New Friend <span><FaUserPlus /></span>
         </h2>
-        <h4 className='text-text-secondary mr-2'>Share costs. Stay synced.</h4>
+        <h4 className='text-text-secondary text-sm sm:text-base mr-2 text-center'>Share costs. Stay synced.</h4>
       </div>
 
-      <form onSubmit={handleSubmit(Onsubmit)} className='Friend-form m-6 space-y-3 flex flex-col items-center'>
+      <form onSubmit={handleSubmit(Onsubmit)} className='Friend-form m-3 sm:m-6 space-y-3 flex flex-col items-center w-full'>
         <Controller
           name="Name"
           control={control}
@@ -110,7 +110,7 @@ export const Newfriend = () => {
                   }
                 }}
               />
-              {fieldState.error && <p className='text-red-600 text-sm'>{fieldState.error.message}</p>}
+              {fieldState.error && <p className='text-red-600 text-xs sm:text-sm w-full'>{fieldState.error.message}</p>}
             </>
           )}
         />
@@ -135,7 +135,7 @@ export const Newfriend = () => {
                   }
                 }}
               />
-              {fieldState.error && <p className='text-red-600 text-sm'>{fieldState.error.message}</p>}
+              {fieldState.error && <p className='text-red-600 text-xs sm:text-sm w-full'>{fieldState.error.message}</p>}
             </>
           )}
         />
@@ -149,7 +149,7 @@ export const Newfriend = () => {
                 onChange={(file) => field.onChange(file)}
                 value={field.value}
               />
-              {fieldState.error && <p className='text-red-600 text-sm'>{fieldState.error.message}</p>}
+              {fieldState.error && <p className='text-red-600 text-xs sm:text-sm w-full'>{fieldState.error.message}</p>}
             </>
           )}
         />
@@ -161,13 +161,13 @@ export const Newfriend = () => {
               value={field.value}
               onChange={(e) => field.onChange(e.target.checked)}
             >
-              <h3 className='text-sm'>Do you want to pin this person?</h3>
+              <h3 className='text-xs sm:text-sm'>Do you want to pin this person?</h3>
             </Checkbox>
           )}
         />
         <Newbtn isSubmitting={isSubmitting} />
-        {isSubmitting && <p className="text-gray-500 mt-2">Adding friend...</p>}
-        {issubmitted && <p className='text-green-500'>Friend Added Successfully!</p>}
+        {isSubmitting && <p className="text-gray-500 text-sm mt-2">Adding friend...</p>}
+        {issubmitted && <p className='text-green-500 text-sm'>Friend Added Successfully!</p>}
       </form>
     </div>
   );

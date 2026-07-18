@@ -9,7 +9,7 @@ const Input = ({variant ,value ,onChange }) => {
           required 
           type="text" 
           autoComplete="off" 
-          className="input" 
+          className="input w-full lg:w-90 text-sm lg:text-base" 
           value={value}
           onChange={onChange}
         />
@@ -29,10 +29,8 @@ const StyledWrapper = styled.div`
    border-radius: 1rem;
    background: none;
    padding:.9rem;
-   font-size: 1rem;
    color: black;
    transition: border 150ms cubic-bezier(0.4,0,0.2,1);
-   width:450px
   }
 
   .user-label {

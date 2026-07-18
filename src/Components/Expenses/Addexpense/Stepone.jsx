@@ -29,7 +29,7 @@ export const Stepone = () => {
     }, [SelectedFriends,setValue])
     return (
         <>
-            <div className="calculator-inputs flex gap-4 mt-4">
+            <div className="calculator-inputs flex flex-col md:flex-row gap-4 mt-4 w-full flex-wrap p-2 sm:p-4">
                 <Controller
                     control={control}
                     name="expenseName"
@@ -41,7 +41,7 @@ export const Stepone = () => {
                     }}
                     render={({ field, fieldState }) => (
                         <>
-                            <CalculatorInput variant="Expense Name" width={"650px"} type="text"
+                            <CalculatorInput variant="Expense Name" width="w-full lg:w-[600px]" type="text"
                                 value={field.value}
                                 onChange={(e) => {
                                     if (e.target.value.length <= 26) {
@@ -64,7 +64,7 @@ export const Stepone = () => {
                     }}
                     render={({ field, fieldState }) => (
                         <>
-                            <CalculatorInput variant="Total Amount" width={"280px"} type="number"
+                            <CalculatorInput variant="Total Amount" width="w-full lg:w-[280px]" type="number"
                                 value={field.value}
                                 onChange={(e) => {
 
@@ -85,7 +85,7 @@ export const Stepone = () => {
 
             </div>
             <div className="Select-categories mt-6 space-y-3">
-                <h4 className='text-md font-semibold my-3'>Choose Category</h4>
+                <h4 className='text-sm sm:text-md font-semibold my-3'>Choose Category</h4>
                 <Controller
                     name="Category"
                     control={control}
@@ -111,7 +111,7 @@ export const Stepone = () => {
                                 }}
                             />
                             {fieldState.error && (
-                                <p className="text-red-600 text-sm mt-1">{fieldState.error.message}</p>
+                                <p className="text-red-600 text-xs sm:text-sm mt-1">{fieldState.error.message}</p>
                             )}
                         </>
                     )}
@@ -119,33 +119,33 @@ export const Stepone = () => {
             </div>
             <div className='select-friends-container w-full my-5'>
                 <div className='select-friends-container w-full '>
-                    <div className='select-friend-option flex items-center justify-between'>
-                        <h4 className='text-md font-semibold my-2 '>Select who shares this cost        </h4>
-                           {errors.splitMembers && <p className='text-red-500 text-sm  mt-2'>{errors.splitMembers.message}</p>}
-                        <div className='center-flex gap-2'>
-                            <div className=' w-25 py-2 px-3 bg-neutral-100  rounded-lg  '>
+                    <div className='select-friend-option flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2'>
+                        <h4 className='text-sm sm:text-md font-semibold my-2 '>Select who shares this cost        </h4>
+                           {errors.splitMembers && <p className='text-red-500 text-xs sm:text-sm  mt-2'>{errors.splitMembers.message}</p>}
+                        <div className='flex flex-wrap items-center gap-2'>
+                            <div className=' w-auto py-2 px-3 bg-neutral-100  rounded-lg  '>
                                 <Selectall Selected={SelectedFriends}
                                     setSelected={setSelectedFriends} members={Groupmembers}>
-                                    <h5 className='text-[13px] text-text-secondary'>Select all</h5>
+                                    <h5 className='text-[12px] sm:text-[13px] text-text-secondary whitespace-nowrap'>Select all</h5>
                                 </Selectall>
                             </div>
                         </div>
                     </div>
                     <div className='select-friends mx-auto mt-3'>  
-                   <div className="friend-lists h-60 overflow-auto  grid grid-cols-6  gap-3  border-b-light px-2 border-l p-2 ">
+                   <div className="friend-lists max-h-80 overflow-auto  grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3  border-b-light px-1 sm:px-2 border-l p-2 ">
                         {Groupmembers.map((friend, index) => {
-                            return (<label key={index} className={`select-friend rounded-lg shadow-md  bg-neutral-100 flex flex-col items-center justify-center gap-1 pt-1 relative trans h-38 ${friend?.isBanned ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}  center-flex`}>
-                                <div className={`logo size-13 rounded-full relative ${friend?.isBanned ? "border-red-500" : "border-primary"} border center-flex`}>
-                                    <img src={friend.Image} className='Img-c' alt="friend-img" />
+                            return (<label key={index} className={`select-friend rounded-lg shadow-md bg-neutral-100 flex flex-col items-center justify-center gap-1 p-2 sm:p-3 relative trans min-h-[130px] sm:min-h-[150px] ${friend?.isBanned ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}>
+                                <div className={`logo size-12 sm:size-16 rounded-full relative ${friend?.isBanned ? "border-red-500" : "border-primary"} border center-flex`}>
+                                    <img src={friend.Image} className='Img-c w-full h-full object-cover rounded-full' alt="friend-img" />
                                     {friend?.isBanned && (
                                         <div className="absolute top-9/12 left-1 p-1 opacity-90 bg-red-500 rounded-full text-white shadow-lg">
                                             <FaBan className="size-2" />
                                         </div>
                                     )}
                                 </div>
-                                <div className="friend-info center-flex flex-col">
-                                    <h2 className='text-sm'>{friend.Name}</h2>
-                                    <p className={`text-[12px] ${friend?.isBanned ? "text-red-600 font-semibold" : "text-text-secondary"}`}>
+                                <div className="friend-info center-flex flex-col text-center min-w-0">
+                                    <h2 className='text-xs sm:text-sm truncate max-w-full'>{friend.Name}</h2>
+                                    <p className={`text-[11px] sm:text-[12px] truncate max-w-full ${friend?.isBanned ? "text-red-600 font-semibold" : "text-text-secondary"}`}>
                                         {friend?.isBanned ? "(Banned) " : friend.Bio || "temporary"}
                                     </p>
                                 </div>

@@ -20,23 +20,26 @@
 
   }
 
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+ ::-webkit-scrollbar {
+  width: 8px;
+}
 
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 999px;
+}
 
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    cursor: pointer;
-    background-color: #dbdada;
-  }
+::-webkit-scrollbar-thumb {
+  background: #dbdada;       
+  border-radius: 999px;
+  cursor: pointer;           
+  transition: background 0.3s ease; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #807e7e;      
+}
 
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+  
 
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {

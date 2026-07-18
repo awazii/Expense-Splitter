@@ -22,7 +22,7 @@ const StyledWrapper = styled.div`
     font-family: inherit;
     padding: 0.35em;
     padding-left: 1.2em;
-    font-size: 17px;
+    font-size: clamp(13px, 3vw, 17px);
     font-weight: 500;
     border-radius: 0.9em;
     border: none;
@@ -35,6 +35,8 @@ const StyledWrapper = styled.div`
     height: 2.8em;
     padding-right: 3.3em;
     cursor: pointer;
+    white-space: nowrap;
+    max-width: 100%;
   }
 
   .cssbuttons-io-button .icon {

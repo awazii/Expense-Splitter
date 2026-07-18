@@ -5,17 +5,17 @@ const Radio = ({ splits, memberscount ,value, onChange }) => {
 
   return (
     <StyledWrapper>
-      <div className="radio-container flex flex-col justify-evenly gap-3 h-115 ">
+     <div className="radio-container flex flex-col justify-evenly gap-2 sm:gap-3 h-auto">
         {splits.map((split, index) => (
           <React.Fragment key={index}>
             <input key={index} value={split.label} checked={value === split.label} id={split.label} name="radio" type="radio" className="peer" onChange={onChange} disabled={(memberscount === 1 && index !== 0)} />
-            <label htmlFor={split.label} className={`flex-1 flex flex-col justify-center p-4 rounded-lg mx-2  border-l shadow-md  transition-all relative ${memberscount === 1 && index !== 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}>
-              <div className="split-info">
-                <h3 className=" font-bold ">{split.label}</h3>
-                <p className="text-[13px] text-gray-500 ">{split.description}</p>
+            <label htmlFor={split.label} className={`flex-1 flex flex-col justify-center p-3 sm:p-4 rounded-lg mx-1 sm:mx-2 border-l shadow-md transition-all relative ${memberscount === 1 && index !== 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}>
+              <div className="split-info min-w-0">
+                <h3 className="font-bold text-sm sm:text-base truncate">{split.label}</h3>
+                <p className="text-[12px] sm:text-[13px] text-gray-500">{split.description}</p>
               </div>
-              <div className="about card-b rounded-lg h-fit mt-2 p-2 ">
-                <p className='text-text-secondary text-sm'>{split.example}</p>
+              <div className="about card-b rounded-lg h-fit mt-2 p-2">
+                <p className='text-text-secondary text-xs sm:text-sm'>{split.example}</p>
               </div>
               {value === split.label && (<div className="tick absolute top-2 right-2 bg-primary rounded-full p-1 ">
                 <TiTick className='text-white size-3' />

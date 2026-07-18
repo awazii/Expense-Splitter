@@ -16,7 +16,7 @@ export const TotalOwedChart = () => {
     isBanned: friend.isBanned
   }))
   return (
-    <div style={{ width: "100%", height: 300 }}>
+    <div style={{ width: "100%", height: 280 }}>
       {data.length > 0  ? < ResponsiveContainer >
         <AreaChart
           data={data}

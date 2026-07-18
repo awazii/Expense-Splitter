@@ -42,7 +42,7 @@ export const Comparisongraph = ({ Expense }) => {
         return obj
     })
     return (
-        <div style={{ width: "100%", height: 640 }}>
+        <div style={{ width: "100%", height:'100%'  }}>
             <ResponsiveContainer>
                 <BarChart
                     layout="vertical"

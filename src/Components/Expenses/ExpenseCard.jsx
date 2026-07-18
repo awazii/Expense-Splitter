@@ -5,66 +5,77 @@ import { categories } from '../../pages/Expenses/Expenses';
 import { useSelector } from 'react-redux';
 import { selectGroupById } from '../../store/GroupSlice';
 import { selectFriendById } from '../../store/FriendsSlice';
-import {FaBan} from "react-icons/fa"
- const MemberAvatars = React.memo(({ id }) => {
+import { FaBan } from "react-icons/fa"
+
+const MemberAvatars = React.memo(({ id }) => {
     const friend = useSelector(state => selectFriendById(state, id));
     return (
-        <div className={`member size-7  rounded-lg shadow-md ${friend?.isBanned ? "border-red-500" : "border-primary"} border relative`}>
+        <div className={`member size-6 md:size-7 rounded-lg shadow-sm ${friend?.isBanned ? "border-red-500" : "border-primary"} border relative`}>
             <img src={friend?.Image || ""} alt="" className='Img-c rounded-lg' />
             {friend?.isBanned && (
-                <div className="absolute top-9/12 left-4 p-1 opacity-90 bg-red-500 rounded-full text-white shadow-lg">
-                    <FaBan className="size-1" />
+                <div className="absolute -bottom-1 -right-1 p-[2px] bg-red-500 rounded-full text-white shadow-md z-10">
+                    <FaBan className="size-2" />
                 </div>
             )}
         </div>
     )
 })
-export const ExpenseCard =React.memo(({ expense, Openmodel, ForGroup }) => {
+
+export const ExpenseCard = React.memo(({ expense, Openmodel, ForGroup }) => {
     const group = useSelector(state => selectGroupById(state, expense.Groupid));
-      const Icon = categories[expense.Category].icon;
+    const Icon = categories[expense.Category].icon;
+    
     return (
-        <div className='expense relative bg-white shadow-md h-40 rounded-lg'>
-            <div className='expense-detail-btn absolute bottom-4 right-5'>
-                <Expensedetailbtn Openmodel={Openmodel} />
-            </div>
-            <div className="expense-info  w-[92%] h-20 mx-auto mt-1  rounded-lg center-flex gap-3">
-                <div className="expense-logo  size-15 rounded-lg  center-flex shadow-md" style={{ background: categories[expense.Category].gradient }}>
-                    <Icon className="size-6 text-white" />
+        <div className='relative bg-white shadow-md rounded-lg p-3 md:p-4 flex flex-col gap-3 h-full justify-between'>
+            <div className="flex items-start gap-3">
+                <div className="size-12 md:size-14 shrink-0 rounded-lg center-flex shadow-sm mt-1" style={{ background: categories[expense.Category].gradient }}>
+                    <Icon className="size-5 md:size-6 text-white" />
                 </div>
-                <div className='expense-details flex-1  h-15 flex justify-between gap-1 items-center'>
-                    <div className='expense-left'>
-                        <h2 className='text-lg font-semibold line-clamp-1 '>{expense.Name}</h2>
-                        <div className="category-date flex items-center gap-1">
-                            <span className='text-sm text-text-secondary'>{categories[expense.Category].name}</span>
-                            <span className='text-sm text-text-secondary'>•</span>
-                            <span className='text-sm text-text-secondary'>{expense.createdDate}</span>
+                
+                <div className='flex-1 min-w-0 flex justify-between items-start gap-2'>
+                    <div className='flex-1 min-w-0'>
+                        <h2 className='text-base md:text-lg font-semibold truncate'>{expense.Name}</h2>
+                        <div className="flex items-center gap-1 flex-wrap mt-0.5">
+                            <span className='text-xs text-text-secondary truncate'>{categories[expense.Category].name}</span>
+                            <span className='text-xs text-text-secondary'>•</span>
+                            <span className='text-xs text-text-secondary whitespace-nowrap'>{expense.createdDate}</span>
                         </div>
                     </div>
-                    <div className='expense-right text-right'>
-                        <h2 className='text-xl text-primary font-semibold '>Rs.{Number(expense.totalAmount).toLocaleString()}</h2>
-                        <span className='text-[12px] text-text-secondary'>Total Amount</span>
+                    
+                    <div className='text-right shrink-0'>
+                        <h2 className='text-base md:text-lg text-primary font-semibold'>Rs.{Number(expense.totalAmount).toLocaleString()}</h2>
+                        <span className='text-[10px] md:text-xs text-text-secondary block'>Total Amount</span>
                     </div>
                 </div>
             </div>
-            <div className='expense-members w-70 mx-auto h-15 flex items-center  gap-2'>
-                {!ForGroup && <div className="group-avatar size-13 rounded-lg ">
-                    <img src={CategoryExtrator(group)?.Img || ""} alt="" className='Img-c rounded-lg' />
-                </div>}
-                <div className="about ml-2">
-                    { <h4 className='text-md font-semibold line-clamp-1'>{ForGroup?"Participants":group?.Name || ""} </h4> }
-                    <div className="members flex gap-1 mt-1">
-                        {
-                            expense.Members.slice(0, 3).map((members, index) => {
-                                return <MemberAvatars key={index} id={members.id} />;
-                            })
-                        }
-                        {
-                            expense.Members.length > 3 && <div className="rest size-7 bg-highlight border-l shadow-md rounded-lg  center-flex">
-                                <span className='text-[12px] '>+{expense.Members.length - 3}</span>
-                            </div>
-                        }
+            <div className='flex items-center justify-between gap-2 border-t border-gray-100 pt-3 mt-1'>
+                <div className='flex items-center gap-2 flex-1 min-w-0'>
+                    {!ForGroup && (
+                        <div className="size-8 md:size-10 shrink-0 rounded-lg">
+                            <img src={CategoryExtrator(group)?.Img || ""} alt="" className='Img-c rounded-lg' />
+                        </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                        <h4 className='text-xs md:text-sm font-semibold truncate'>
+                            {ForGroup ? "Participants" : group?.Name || ""} 
+                        </h4>
+                        <div className="flex gap-1 mt-1 flex-wrap">
+                            {expense.Members.slice(0, 3).map((members, index) => (
+                                <MemberAvatars key={index} id={members.id} />
+                            ))}
+                            {expense.Members.length > 3 && (
+                                <div className="size-6 md:size-7 bg-highlight border shadow-sm rounded-lg center-flex">
+                                    <span className='text-[10px]'>+{expense.Members.length - 3}</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
+                <div className="shrink-0 self-end mb-1">
+                    <Expensedetailbtn Openmodel={Openmodel} />
+                </div>
             </div>
-        </div>)
+            
+        </div>
+    )
 })
