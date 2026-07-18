@@ -56,7 +56,7 @@ export const Settlements = ({ Expense }) => {
           {Settlements.map((settlement, index) => {
             const debtor = GetPerson(settlement.from);
             return (
-            <div key={index} className="debt w-full flex flex-col sm:flex-row items-center justify-center p-2 border-b border-gray-100 last:border-0">
+            <div key={index} className="debt w-full flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center justify-center p-2 border-b border-gray-100 last:border-0">
   
               <motion.div variants={cardVariants} className="flex-1 w-full  rounded-lg p-3 flex items-center gap-3 border border-b-light lg:p-2">
                 <div className={`relative size-12  border-2 rounded-full shrink-0 ${debtor.isBanned ? " border-red-500" : "border-primary"}`}>
@@ -81,8 +81,8 @@ export const Settlements = ({ Expense }) => {
                 <GiPayMoney className="text-red-600 size-5 shrink-0 transform scale-x-[-1]" />
               </motion.div>
               <div className="p-2">
-                <FaArrowRightLong className='hidden sm:block text-primary size-6' />
-                <FaArrowDownLong className='sm:hidden text-primary size-6' />
+                <FaArrowRightLong className='hidden sm:block lg:hidden xl:block  text-primary size-6' />
+                <FaArrowDownLong className='sm:hidden lg:block xl:hidden text-primary size-6' />
               </div>
               <motion.div variants={cardVariants} className="flex-1 w-full space-y-2">
                 {settlement.to.map((to, idx) => {

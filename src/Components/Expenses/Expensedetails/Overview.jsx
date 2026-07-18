@@ -32,7 +32,7 @@ export const Overview = ({ Expense }) => {
       variants={pageContainerVariants}
       initial="hidden"
       animate="visible"
-      className='bg-white shadow-md w-full h-full rounded-lg flex flex-col sm:flex-row items-center sm:justify-between p-3 sm:p-4 gap-4'
+      className='bg-white shadow-md w-full h-full rounded-lg flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center sm:justify-between p-3 sm:p-4 gap-4'
     >
       {overview.map((card, index) => (
         <motion.div

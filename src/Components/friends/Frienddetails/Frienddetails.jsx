@@ -52,7 +52,7 @@ export const Frienddetails = () => {
   <div className="order-1 lg:order-2 col-span-1 2xl:col-span-1  xl:col-span-2 lg:row-span-3 sm:max-h-none  max-h-[330px] min-h-[200px] lg:min-h-0">
     <Aboutf CurrentFriend={CurrentFriend} />
   </div>
-  <div className="order-2 xl:order-1 Balance col-span-1 2xl:col-span-2  xl:col-span-3 lg:row-span-6 border-l shadow  sm:min-h-[400px] ">
+  <div className="order-2 xl:order-1 Balance col-span-1 2xl:col-span-2  xl:col-span-3 lg:row-span-6 border-l shadow   max-h-[250px] sm:max-h-none ">
     <Balancef currentFriend={CurrentFriend} />
   </div>
   <div className="order-3 lg:order-3 Recent col-span-1 2xl:col-span-1  xl:col-span-2 lg:row-span-3 border-l shadow min-h-[350px] lg:min-h-0 h-[350px] lg:h-full">

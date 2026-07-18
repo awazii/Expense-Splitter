@@ -103,7 +103,7 @@ export const Balancef = ({ currentFriend }) => {
           variants={pageContainerVariants}
           initial="hidden"
           animate="visible"
-          className="friend-balances flex-1 h-fit mt-3 grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-3 auto-rows-min "
+          className="friend-balances flex-1 min-h-0 sm:h-fit  mt-3 grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-3 auto-rows-min "
         >
           {currentFriend.Relationship?.map((rel) => (
             <RelationshipCard
