@@ -181,7 +181,7 @@ export const Grouplist = () => {
        <div className="search flex gap-4 py-2 items-center w-full md:w-80 lg:w-96">
           <Input variant={"Group"} queryOptions={queryOptions} setqueryOptions={setqueryOptions} />
         </div>
-        <div className='flex flex-wrap items-center gap-3 sm:gap-5'>
+        <div className='flex flex-wrap items-center gap-3 sm:gap-5 justify-end'>
           {!(queryOptions.Filter.type === "" && queryOptions.Sort.type === "New to Old") &&
             <button
               className='cursor-pointer text-primary font-semibold underline text-sm sm:text-base'
@@ -202,7 +202,7 @@ export const Grouplist = () => {
                 ))
               }}
             >Clear all</button>}
-          <button className={"filter bg-white shadow-md  p-2 rounded-lg cursor-pointer hover:text-primary hover:scale-105 trans center-flex"} onClick={Openmodel} title='sort & filters'>
+          <button className={"filter bg-white shadow-md  p-2 rounded-lg cursor-pointer hover:text-primary hover:scale-105 trans center-flex "} onClick={Openmodel} title='sort & filters'>
             <CiFilter className='size-5' />
           </button>
         </div>
