@@ -66,7 +66,7 @@ const RelationshipCard = ({ friend, setCurrentbalancewith, Openmodel }) => {
             <p className="font-semibold text-[11px] sm:text-[13px]">Net Balance</p>
           </div>
         </div>
-        <p className="note text-text-secondary font-semibold text-[10px] sm:text-[12px] ml-2 sm:ml-5 mt-1 truncate w-full">{friend.netBalance < 0 ? `(You owed ${Memberdetails(Friend.id)?.Name})` : friend.netBalance > 0 ? `(${Memberdetails(Friend.id)?.Name} owes you)` : "(All setteled)"}</p>
+        <p className="note text-text-secondary font-semibold text-[10px] sm:text-[12px] ml-2 sm:ml-5 mt-1 truncate w-full">{friend.netBalance < 0 ? `(You owed ${Friend?.Name})` : friend.netBalance > 0 ? `(${Friend?.Name} owes you)` : "(All setteled)"}</p>
       </div>
     </motion.div>
   )

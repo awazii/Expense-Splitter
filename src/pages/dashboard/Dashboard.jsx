@@ -18,7 +18,8 @@ export const Dashboard = () => {
   const allactivities = useSelector(selectAllActivities);
   const renderActivities = allactivities.slice(0,20)
   const admin = useSelector(state => selectFriendById(state, "admin_01"));
-
+  console.log(admin)
+   if (!admin) return null 
   return (
     <div className="dashboard-container w-full h-full overflow-auto p-3 sm:p-6 pb-0 scrollbar-hide pt-20  md:pt-5">
       <motion.h1

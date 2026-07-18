@@ -19,11 +19,11 @@ import { selectFriendById } from '../store/FriendsSlice';
 import { HiChevronDown } from "react-icons/hi2";
 import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
-import { Memberdetails } from '../utils/Memberdetails';
 
 export const Recent = ({d, activities, location }) => {
   const { Friend } = useParams();
   const [expandedId, setExpandedId] = useState(null);
+  const CurrentFriendDetails = useSelector(state => selectFriendById(state, Friend));
   
   const DescIconConfig = {
     add: <IoPersonAddSharp className="text-[#4caf50] size-4 sm:size-5" />,
@@ -134,7 +134,7 @@ export const Recent = ({d, activities, location }) => {
               </div>
               <div className="content flex-1 min-w-0 p-1 sm:p-2 text-left">
                 <h3 className='font-semibold text-sm sm:text-base line-clamp-2 break-words'>
-                  {(activity.selfTitle && location === "friendpage") ? `${Memberdetails(Friend)?.Name} joined the group` : activity.title}
+                  {(activity.selfTitle && location === "friendpage") ? `${CurrentFriendDetails?.Name} joined the group` : activity.title}
                 </h3>
                 
                 {activity.category === "group" ? (

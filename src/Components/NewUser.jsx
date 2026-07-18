@@ -20,7 +20,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
     const dispatch = useDispatch()
     const [Finalform, setFinalform] = useState({})
     const navigate = useNavigate()
-    
+
     const {
         handleSubmit,
         reset,
@@ -35,12 +35,12 @@ export const SplitlyOnboarding = ({ onFinish }) => {
             isPinned: false
         }
     });
-    
+
     const fileInputRef = useRef(null);
     const usernamePattern = /^[A-Za-z][0-9A-Za-z_\s]*$/;
     const bioPattern = /^[A-Za-z][A-Za-z\s.,'-]*$/;
     const CurrentForm = useWatch({ control });
-    
+
     const Onsubmit = async (data) => {
         try {
             const imageUrl = await uploadToCloudinary(data.Image);
@@ -60,7 +60,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
             console.error("Error adding friend:", error);
         }
     };
-    
+
     const handleImageChange = (e, field) => {
         const file = e.target.files[0];
         if (file) {
@@ -68,18 +68,18 @@ export const SplitlyOnboarding = ({ onFinish }) => {
             field.onChange(file)
         }
     };
-    
+
     const GetStarted = () => {
         dispatch(setNewUser(false));
-        dispatch(addFriend({
-            Name: Finalform.Name,
-            Bio: Finalform.Bio,
-            Image: Finalform.Image,
-            isPinned: Finalform.isPinned
-        }))
+        dispatch(addFriend(
+            Finalform.Name,
+            Finalform.Bio,
+            Finalform.Image,
+            Finalform.isPinned
+        ))
         navigate('/')
     }
-    
+
     const nextStep = () => setStep((s) => s + 1);
 
     const steps = [
@@ -126,20 +126,20 @@ export const SplitlyOnboarding = ({ onFinish }) => {
         const Icon = obj.icon
         return <Icon className="size-10 text-white shrink-0" />
     }
-    
+
     return (
-       
+
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface sm:p-4 font-sans">
             <motion.div
                 layout
-               
+
                 className="relative w-full h-full sm:h-auto sm:max-h-[95vh] max-w-md overflow-y-auto bg-white rounded-none sm:rounded-[2.5rem] shadow-2xl shadow-gray-300 flex flex-col"
             >
-             
+
                 <div className="p-6 sm:p-8 md:p-10 flex flex-col flex-1 justify-center min-h-full">
                     <AnimatePresence mode="wait">
                         {step === 0 ? (
-                            <motion.form 
+                            <motion.form
                                 onSubmit={handleSubmit(Onsubmit)}
                                 key="profile-setup"
                                 initial={{ opacity: 0, x: 20 }}
@@ -149,7 +149,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                             >
                                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Who are you?</h2>
                                 <p className="text-sm sm:text-base text-text-secondary mb-6 sm:mb-8 text-center">Set up your profile to start splitting.</p>
-                                
+
                                 <div
                                     onClick={() => fileInputRef.current.click()}
                                     className="relative group cursor-pointer mb-4 shrink-0"
@@ -183,7 +183,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                     />
                                 </div>
                                 {errors.Image && <p className='text-red-600 text-xs sm:text-sm mb-2'>{errors.Image.message}</p>}
-                                
+
                                 <div className="w-full space-y-3 sm:space-y-4">
                                     <Controller
                                         name="Name"
@@ -215,7 +215,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                                             </>
                                         )}
                                     />
-                                    
+
                                     <Controller
                                         name="Bio"
                                         control={control}
@@ -285,7 +285,7 @@ export const SplitlyOnboarding = ({ onFinish }) => {
                         )}
                     </AnimatePresence>
 
-                    
+
                     <div className="flex justify-center gap-2 mt-auto pt-8">
                         {steps.map((_, i) => (
                             <div
