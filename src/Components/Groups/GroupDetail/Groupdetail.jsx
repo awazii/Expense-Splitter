@@ -52,7 +52,8 @@ export const Groupdetail = () => {
   return (
     <div className='Indiviual-group h-full scrollbar-hide overflow-auto md:pt-0 pt-20 '>
       {CurrentGroup ? (
-        <> <div className="header h-auto sm:h-25 flex flex-col sm:flex-row px-4 sm:px-10 py-4 sm:py-0 items-start sm:items-center justify-between gap-3 sm:gap-0">
+        <> 
+        <div className="header h-auto sm:h-25 flex flex-col sm:flex-row px-4 sm:px-10 py-4 sm:py-0 items-start sm:items-center justify-between gap-3 sm:gap-0">
           <div className="group-name flex items-center gap-2 sm:gap-3 min-w-0">
             <button
               className="backbtn card-b p-2 rounded-full cursor-pointer group trans hover:scale-102 active:scale-95 shrink-0"
@@ -62,7 +63,7 @@ export const Groupdetail = () => {
             </button>
             <h3 className='text-lg sm:text-2xl lg:text-3xl truncate min-w-0'>{CurrentGroup.Name}</h3>
           </div>
-          {CurrentGroup.statusid !== "Freeze" && <div className="actions flex items-center gap-2 sm:gap-3 shrink-0">
+          {CurrentGroup.statusid !== "Freeze" && <div className="actions flex items-center gap-2 sm:gap-3 shrink-0 self-end sm:self-center">
             {CurrentGroup.statusid !== "Freeze" && (
               <div className="actions center-flex gap-3">
                 <Addexpensebtn />
