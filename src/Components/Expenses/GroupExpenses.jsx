@@ -8,7 +8,7 @@ import { GiExpense } from "react-icons/gi";
 import { Basemodel } from '../basemodel';
 import { Expensedetails } from './Expensedetails/Expensedetails';
 import { useSelector } from 'react-redux';
-import { GroupExpenses } from '../../store/ExpenseSlice';
+import { GroupExpenses ,FriendsGroupSpendings } from '../../store/ExpenseSlice';
 import { ExpenseCard } from './ExpenseCard';
 import { RiHandCoinLine } from "react-icons/ri";
 import { UniversalEmptyState } from '../UniversalEmptyState';
@@ -19,11 +19,12 @@ import { FilterHeader } from '../filter';
 import { FilterSortPanel } from '../FilterSortPanel';
 import { SortIcons, FilterIcons } from "../../utils/SortFiltersvgs";
 import { FilterHandlers } from '../../utils/FilterHandler';
+import { GroupActionDialog } from '../Groups/GroupDetail/GroupActionDialog'
+import Actionbtn from "../Groups/Common/Actionbtn"
 import {
   IoSearchOutline,
 } from "react-icons/io5";
 import dayjs from 'dayjs';
-
 export const expenseGroupSorts = [
   {
     label: "New to Old",
@@ -50,8 +51,11 @@ export const Expenses = () => {
   const Navigate = useNavigate()
   const { Groupid } = useParams();
   const Group = useSelector(state => selectGroupById(state, Groupid))
+  const [restrictpopup, setrestrictpopup] = useState(false)
   const [popup, setpopup] = useState(false)
   const Expenses = useSelector(state => GroupExpenses(state, Groupid));
+  const MembersSpendings = useSelector(state => FriendsGroupSpendings(state, Groupid))
+  const isnew = Expenses.length === 0 && MembersSpendings.length === 0
   const [CurrentExpenseid, setCurrentExpenseid] = useState("")
   const [isFilteropen, setisFilteropen] = useState(false)
   const [queryOptions, setqueryOptions] = useState({
@@ -157,11 +161,11 @@ export const Expenses = () => {
           </button>
           <h3 className='text-2xl md:text-3xl font-semibold'>Expenses</h3>
         </div>
-        {Group.statusid !== "Freeze" && (
           <div className="actions center-flex gap-3">
-            <Addexpensebtn />
-          </div>
-        )}
+            {
+             Group.statusid !== "Freeze" &&  <Actionbtn isnew={isnew} onClick={() => setrestrictpopup(true)} />
+            }
+          </div>  
       </motion.div>
       <motion.div variants={itemVariants} className='flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3 mx-auto container px-4 md:px-6 gap-4'>
         <div className="search flex gap-4 py-2 items-center w-full md:w-80 lg:w-96">
@@ -233,7 +237,9 @@ export const Expenses = () => {
           </UniversalEmptyState>
         )}
       </motion.div>
-      
+      <Basemodel isOpen={restrictpopup} Closemodel={() => setrestrictpopup(false)}>
+              <GroupActionDialog groupId={Groupid} isnew={isnew} Closemodel={() => setrestrictpopup(false)} />
+            </Basemodel>
       <Basemodel isOpen={popup} Closemodel={Closemodel} title="Expense Details">
         <Expensedetails expenseid={CurrentExpenseid} />
       </Basemodel>
