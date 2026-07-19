@@ -226,7 +226,7 @@ export const Addexpense = () => {
                         </motion.div>
                     </AnimatePresence>
                 </div>
-                <div className="progress center-flex flex-col absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg border border-gray-200 z-90">
+                <div className="progress center-flex flex-col absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg border border-gray-200 z-9">
                     <h3 className='text-xs sm:text-sm text-text-secondary'>Step {step} of 3</h3>
                     <div className="progress-bar h-2 sm:h-3 bg-highlight rounded-full mt-2 w-32 sm:w-44 md:w-60 shadow border-l">
                         <div className={`progress-fill h-full bg-primary ${step === 1 ? "w-1/3" : step === 2 ? "w-2/3" : "w-full"} rounded-full trans`}></div>

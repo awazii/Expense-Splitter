@@ -163,7 +163,7 @@ export const Expenses = () => {
         </div>
           <div className="actions center-flex gap-3">
             {
-             Group.statusid !== "Freeze" &&  <Actionbtn isnew={isnew} onClick={() => setrestrictpopup(true)} />
+             Group?.statusid !== "Freeze" &&  <Actionbtn isnew={isnew} onClick={() => setrestrictpopup(true)} />
             }
           </div>  
       </motion.div>
