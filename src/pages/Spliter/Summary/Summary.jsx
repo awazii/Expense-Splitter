@@ -20,7 +20,7 @@ export const SummaryDashboard = () => {
             <div className="insights lg:col-span-2">
                 <Insights data={Expense.Members} />
             </div>
-            <div className="Comparisan-graph bg-white shadow-md lg:col-span-3 rounded-lg p-3 h-[400px] md:h-[540px]">
+            <div className="Comparisan-graph bg-white shadow-md lg:col-span-3 rounded-lg p-3 min-h-[350px]">
                 <Comparisongraph Expense={Expense} />
             </div>
             
