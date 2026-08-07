@@ -13,14 +13,14 @@ export const SummaryDashboard = () => {
 
     return (
         <div className="w-full h-auto mt-2 mb-4 flex flex-col lg:grid lg:grid-cols-5 gap-4">
-            <div className="Overview lg:col-span-3">
+            <div className="Overview lg:col-span-2 2xl:col-span-3">
                 <Overview Expense={Expense} />
             </div>
 
-            <div className="insights lg:col-span-2">
+            <div className="insights lg:col-span-3 2xl:col-span-2">
                 <Insights data={Expense.Members} />
             </div>
-            <div className="Comparisan-graph bg-white shadow-md lg:col-span-3 rounded-lg p-3 h-[400px] md:h-[540px]">
+            <div className="Comparisan-graph bg-white shadow-md lg:col-span-3 rounded-lg p-3 h-[400px] md:h-[520px]">
                 <Comparisongraph Expense={Expense} />
             </div>
             
