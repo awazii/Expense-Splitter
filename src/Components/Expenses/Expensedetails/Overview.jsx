@@ -39,7 +39,7 @@ export const Overview = ({ Expense }) => {
           key={index}
           variants={cardContentVariants}
           className={`flex flex-row  items-center sm:justify-center flex-1 w-full gap-3 sm:gap-2 
-                     ${index === 1 ? "sm:border-l sm:border-r  border-gray-100" : ""}`}
+                    ${index === 1 ? "sm:border-l sm:border-r  border-gray-100" : ""}`}
         >
           <div
            className="logo size-12 sm:size-14 md:size-16 lg:size-20 shrink-0 rounded-full flex items-center justify-center"
